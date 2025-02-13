@@ -28,7 +28,7 @@ public class LivroPullRequestDto {
     private Long isbn;
 
     @NotNull
-    private Boolean emprestado = false;
+    private Boolean emprestado;
 
 
 }

@@ -58,6 +58,21 @@ public class LivroController {
         return new ResponseEntity<>( service.listarLivros(), HttpStatus.OK );
     }
 
+    @GetMapping("/disponiveis")
+    public ResponseEntity<List<LivroFullResponseDTO>> listarLivrosDisponiveis () {
+        return new ResponseEntity<>( service.listarLivrosDisponiveis(), HttpStatus.OK );
+    }
+
+    @GetMapping("/emprestados")
+    public ResponseEntity<List<LivroFullResponseDTO>> listarLivrosEmprestados () {
+        return new ResponseEntity<>( service.listarLivrosEmprestados(), HttpStatus.OK );
+    }
+
+    @GetMapping
+    public ResponseEntity<List<LivroFullResponseDTO>> listarLivrosPorDispobinilidade ( @RequestParam Boolean disponibilidade ) {
+        return new ResponseEntity<>( disponibilidade ? service.listarLivrosDisponiveis() : service.listarLivrosEmprestados(), HttpStatus.OK );
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarLivro ( @PathVariable @Positive Integer id ) {
         service.deletarLivro( id );

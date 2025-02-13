@@ -32,14 +32,6 @@ public class LivroService {
         return repository.findAll().stream().map(Livro::converterTudo).toList();
     }
 
-    public List<LivroFullResponseDTO> listarLivrosDisponiveis () {
-        return repository.findByEmprestado(false).stream().map(Livro::converterTudo).toList();
-    }
-
-    public List<LivroFullResponseDTO> listarLivrosEmprestados () {
-        return repository.findByEmprestado(true).stream().map(Livro::converterTudo).toList();
-    }
-
     public LivroFullResponseDTO atualizarLivro ( LivroRequestDTO livroRequestDTO, Integer id ){
 
         Livro livro = livroRequestDTO.converter();
