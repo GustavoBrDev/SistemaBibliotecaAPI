@@ -1,7 +1,7 @@
 package com.sistema.biblioteca.sistemaBiblioteca.CONTROLLER;
 
-import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.LivroRequestDTO;
-import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.LivroFullResponseDTO;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.LIVRO.LivroRequestDTO;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.LIVRO.LivroFullResponseDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.SERVICE.LivroService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;

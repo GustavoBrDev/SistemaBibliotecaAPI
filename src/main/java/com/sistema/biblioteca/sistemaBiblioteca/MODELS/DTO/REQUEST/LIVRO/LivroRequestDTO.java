@@ -1,4 +1,4 @@
-package com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST;
+package com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.LIVRO;
 
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY.Livro;
 import jakarta.validation.constraints.NotBlank;

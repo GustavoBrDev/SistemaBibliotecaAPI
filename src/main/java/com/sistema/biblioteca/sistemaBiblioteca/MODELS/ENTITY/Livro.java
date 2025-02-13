@@ -1,8 +1,9 @@
 package com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY;
 
-import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.AutorResponseDTO;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.AUTOR.AutorResponseDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.GeneroResponseDTO;
-import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.LivroFullResponseDTO;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.LIVRO.LivroAutorResponseDTO;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.LIVRO.LivroFullResponseDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -63,12 +64,25 @@ public class Livro {
                 .build();
     }
 
+    public LivroAutorResponseDTO converterAutor ( ){
+
+        return LivroAutorResponseDTO.builder().
+                id (this.id )
+                .nome(this.nome)
+                .isbn( this.isbn)
+                .dataLancamento( this.dataLancamento )
+                .sinopse( this.sinopse )
+                .emprestado( this.emprestado )
+                .generos( converterGeneros() )
+                .build();
+    }
+
     public List<AutorResponseDTO> converterAutores ( ){
 
         List<AutorResponseDTO> conversao = new ArrayList<>();
 
         for ( Autor autor : this.autores ){
-            conversao.add( autor.conveter() );
+            conversao.add( autor.converter() );
         }
 
         return conversao;

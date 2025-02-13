@@ -1,8 +1,8 @@
 package com.sistema.biblioteca.sistemaBiblioteca.SERVICE;
 
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.AutorRequestDTO;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.AUTOR.AutorFullResponseDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY.Autor;
-import com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY.Livro;
 import com.sistema.biblioteca.sistemaBiblioteca.REPOSITORY.AutorRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class AutorService {
 
     private AutorRepository repository;
 
-    public void criarAutor (AutorRequestDTO autorRequestDTO ) {
+    public AutorFullResponseDTO criarAutor (AutorRequestDTO autorRequestDTO ) {
 
         Autor autor = autorRequestDTO.converter();
 
@@ -23,33 +23,33 @@ public class AutorService {
             throw new RuntimeException("Autor já cadastrado");
         }
 
-        repository.save( autor );
+        return repository.save( autor ).converterTudo();
     }
 
-    public void atualizarAutor (AutorRequestDTO autorRequestDTO, Integer id) {
+    public AutorFullResponseDTO atualizarAutor (AutorRequestDTO autorRequestDTO, Integer id) {
 
         Autor autor = autorRequestDTO.converter();
         autor.setId( id );
 
         if ( repository.existsById(id) ) {
-            repository.save( autor );
+            return repository.save( autor ).converterTudo();
         }
 
         throw new RuntimeException("Autor não encontrado");
     }
 
-    public Autor buscarAutor ( Integer id ) {
+    public AutorFullResponseDTO buscarAutor ( Integer id ) {
 
         try {
-            return repository.findById( id ).get();
+            return repository.findById( id ).get().converterTudo();
         } catch ( RuntimeException e ) {
             throw new RuntimeException("Autor não encontrado");
         }
 
     }
 
-    public List<Autor> listarAutores () {
-        return repository.findAll();
+    public List<AutorFullResponseDTO> listarAutores () {
+        return repository.findAll().stream().map(Autor::converterTudo).toList();
     }
 
     public void deletarAutor ( Integer id ) {

@@ -1,5 +1,7 @@
-package com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE;
+package com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.LIVRO;
 
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.AUTOR.AutorResponseDTO;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.GeneroResponseDTO;
 import lombok.Builder;
 
 import java.util.List;
