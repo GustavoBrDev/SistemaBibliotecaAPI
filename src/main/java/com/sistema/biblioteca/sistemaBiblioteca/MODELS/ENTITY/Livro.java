@@ -1,9 +1,10 @@
 package com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY;
 
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.AUTOR.AutorResponseDTO;
-import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.GeneroResponseDTO;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.GENERO.GeneroResponseDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.LIVRO.LivroAutorResponseDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.LIVRO.LivroFullResponseDTO;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.LIVRO.LivroGeneroResponseDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -74,6 +75,19 @@ public class Livro {
                 .sinopse( this.sinopse )
                 .emprestado( this.emprestado )
                 .generos( converterGeneros() )
+                .build();
+    }
+
+    public LivroGeneroResponseDTO converterGenero ( ){
+
+        return LivroGeneroResponseDTO.builder().
+                id (this.id )
+                .nome(this.nome)
+                .isbn( this.isbn)
+                .dataLancamento( this.dataLancamento )
+                .sinopse( this.sinopse )
+                .emprestado( this.emprestado )
+                .autores( converterAutores() )
                 .build();
     }
 

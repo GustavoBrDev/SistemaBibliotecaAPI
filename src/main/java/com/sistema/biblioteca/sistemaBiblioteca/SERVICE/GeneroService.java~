@@ -1,0 +1,36 @@
+package com.sistema.biblioteca.sistemaBiblioteca.SERVICE;
+
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.GENERO.GeneroRequestDTO;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.GENERO.GeneroFullResponseDTO;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY.Genero;
+import com.sistema.biblioteca.sistemaBiblioteca.REPOSITORY.GeneroRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@AllArgsConstructor
+public class GeneroService {
+
+    private GeneroRepository repository;
+
+    public GeneroFullResponseDTO criarGenero (GeneroRequestDTO generoRequestDTO) {
+
+        Genero genero = generoRequestDTO.converter();
+
+        if ( repository.existsByNome(genero.getNome()) ) {
+            throw new RuntimeException("Genero já cadastrado");
+        }
+
+        return repository.save( genero ).converterTudo();
+    }
+
+
+    public void deletarGenero ( Integer id ) {
+
+        if ( repository.existsById(id) ) {
+            repository.deleteById(id);
+        }
+
+        throw new RuntimeException("Genero não encontrado");
+    }
+}

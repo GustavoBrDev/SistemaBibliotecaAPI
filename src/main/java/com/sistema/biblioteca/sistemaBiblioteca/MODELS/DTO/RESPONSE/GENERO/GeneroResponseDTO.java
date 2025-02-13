@@ -1,4 +1,4 @@
-package com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE;
+package com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.GENERO;
 
 import lombok.Builder;
 
