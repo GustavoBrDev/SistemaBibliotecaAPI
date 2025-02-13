@@ -61,7 +61,6 @@ public class Livro {
                 .autores( converterAutores() )
                 .generos( converterGeneros() )
                 .build();
-
     }
 
     public List<AutorResponseDTO> converterAutores ( ){
