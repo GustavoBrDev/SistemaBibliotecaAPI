@@ -12,23 +12,23 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class GeneroService {
+        public class GeneroService {
 
-    private GeneroRepository repository;
+        private GeneroRepository repository;
 
-    public GeneroFullResponseDTO criarGenero (GeneroRequestDTO generoRequestDTO) {
+        public GeneroFullResponseDTO criarGenero (GeneroRequestDTO generoRequestDTO) {
 
-        Genero genero = generoRequestDTO.converter();
+            Genero genero = generoRequestDTO.converter();
 
-        if ( repository.existsByNome(genero.getNome()) ) {
-            throw new RuntimeException("Genero já cadastrado");
+            if ( repository.existsByNome(genero.getNome()) ) {
+                throw new RuntimeException("Genero já cadastrado");
+            }
+
+            return repository.save( genero ).converterTudo();
         }
 
-        return repository.save( genero ).converterTudo();
-    }
 
-
-    public GeneroFullResponseDTO atualizarGenero (Integer id, GeneroPullRequestDTO generoPullRequestDTO ) {
+        public GeneroFullResponseDTO atualizarGenero (Integer id, GeneroPullRequestDTO generoPullRequestDTO ) {
 
         if ( repository.existsById(id) ) {
             Genero genero = generoPullRequestDTO.converter();
