@@ -5,11 +5,9 @@ import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.LivroFullRes
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY.Livro;
 import com.sistema.biblioteca.sistemaBiblioteca.REPOSITORY.LivroRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 @AllArgsConstructor
 public class LivroService {
 
