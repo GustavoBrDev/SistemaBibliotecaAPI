@@ -6,6 +6,8 @@ import com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY.Livro;
 import com.sistema.biblioteca.sistemaBiblioteca.REPOSITORY.LivroRepository;
 import lombok.AllArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 public class LivroService {
 
@@ -24,6 +26,10 @@ public class LivroService {
         return livroRepository.findById( id ).get().converterTudo();
     }
 
+    public List<LivroFullResponseDTO> listarLivros () {
+        return livroRepository.findAll().stream().map(Livro::converterTudo).toList();
+    }
+
     public LivroFullResponseDTO atualizarLivro ( LivroRequestDTO livroRequestDTO, Integer id ){
 
         Livro livro = livroRequestDTO.converter();
@@ -33,6 +39,15 @@ public class LivroService {
             return livroRepository.save( livro ).converterTudo();
         }
 
-        throw
+        throw new RuntimeException("Livro não encontrado");
+    }
+
+    public void deletarLivro ( Integer id ){
+
+        if ( livroRepository.existsById(id) ){
+            livroRepository.deleteById( id );
+        }
+
+        throw new RuntimeException("Livro não encontrado");
     }
 }
