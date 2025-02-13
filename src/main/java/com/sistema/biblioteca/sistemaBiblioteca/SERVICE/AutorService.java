@@ -1,5 +1,6 @@
 package com.sistema.biblioteca.sistemaBiblioteca.SERVICE;
 
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.AUTOR.AutorPullRequestDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.AUTOR.AutorRequestDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.AUTOR.AutorFullResponseDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY.Autor;
@@ -26,12 +27,11 @@ public class AutorService {
         return repository.save( autor ).converterTudo();
     }
 
-    public AutorFullResponseDTO atualizarAutor (AutorRequestDTO autorRequestDTO, Integer id) {
-
-        Autor autor = autorRequestDTO.converter();
-        autor.setId( id );
+    public AutorFullResponseDTO atualizarAutor (AutorPullRequestDTO autorRequestDTO, Integer id) {
 
         if ( repository.existsById(id) ) {
+            Autor autor = autorRequestDTO.converter();
+            autor.setId( id );
             return repository.save( autor ).converterTudo();
         }
 

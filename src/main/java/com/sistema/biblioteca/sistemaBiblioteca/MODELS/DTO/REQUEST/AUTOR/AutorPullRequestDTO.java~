@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class AutorPullRequestDTO {
 
-    @NotNull
+    @NotNull 
     @Positive
     private Integer id;
 

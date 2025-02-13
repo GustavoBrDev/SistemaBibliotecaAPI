@@ -58,22 +58,39 @@ public class LivroController {
 
     @GetMapping
     public ResponseEntity<List<LivroFullResponseDTO>> listarLivros () {
-        return new ResponseEntity<>( service.listarLivros(), HttpStatus.OK );
+        try {
+            return new ResponseEntity<>( service.listarLivros(), HttpStatus.OK );
+        } catch ( RuntimeException e ) {
+            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+        }
     }
 
     @GetMapping("/disponiveis")
     public ResponseEntity<List<LivroFullResponseDTO>> listarLivrosDisponiveis () {
-        return new ResponseEntity<>( service.listarLivrosDisponiveis(), HttpStatus.OK );
+        try {
+            return new ResponseEntity<>( service.listarLivrosDisponiveis(), HttpStatus.OK );
+        } catch ( RuntimeException e ) {
+            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+        }
     }
 
     @GetMapping("/emprestados")
     public ResponseEntity<List<LivroFullResponseDTO>> listarLivrosEmprestados () {
-        return new ResponseEntity<>( service.listarLivrosEmprestados(), HttpStatus.OK );
+        try {
+            return new ResponseEntity<>( service.listarLivrosEmprestados(), HttpStatus.OK );
+        } catch ( RuntimeException e ) {
+            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+        }
     }
 
     @GetMapping
     public ResponseEntity<List<LivroFullResponseDTO>> listarLivrosPorDispobinilidade ( @RequestParam Boolean disponibilidade ) {
-        return new ResponseEntity<>( disponibilidade ? service.listarLivrosDisponiveis() : service.listarLivrosEmprestados(), HttpStatus.OK );
+
+        try {
+            return new ResponseEntity<>( disponibilidade ? service.listarLivrosDisponiveis() : service.listarLivrosEmprestados(), HttpStatus.OK );
+        } catch ( RuntimeException e ) {
+            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+        }
     }
 
     @DeleteMapping("/{id}")
