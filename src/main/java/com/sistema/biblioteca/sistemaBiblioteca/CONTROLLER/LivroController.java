@@ -30,7 +30,8 @@ public class LivroController {
         }
     }
 
-    @PutMapping
+    // Isso daqui vai ter que ser mudado por causa do DTO do livro (ele não tem o id)
+    @PutMapping("/{id}")
     public ResponseEntity<LivroFullResponseDTO> atualizarLivro ( @RequestBody @Valid LivroRequestDTO livroRequestDTO, @RequestParam Integer id ) {
 
         try {
@@ -41,7 +42,7 @@ public class LivroController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<LivroFullResponseDTO> buscarLivro ( @PathVariable @Positive Integer id ) {
 
         try {
@@ -55,6 +56,12 @@ public class LivroController {
     @GetMapping
     public ResponseEntity<List<LivroFullResponseDTO>> listarLivros () {
         return new ResponseEntity<>( service.listarLivros(), HttpStatus.OK );
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarLivro ( @PathVariable @Positive Integer id ) {
+        service.deletarLivro( id );
+        return new ResponseEntity<>( HttpStatus.OK );
     }
 
 }
