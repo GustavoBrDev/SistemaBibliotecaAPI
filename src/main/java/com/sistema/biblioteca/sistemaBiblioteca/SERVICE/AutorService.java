@@ -1,6 +1,6 @@
 package com.sistema.biblioteca.sistemaBiblioteca.SERVICE;
 
-import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.AutorRequestDTO;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.AUTOR.AutorRequestDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.AUTOR.AutorFullResponseDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY.Autor;
 import com.sistema.biblioteca.sistemaBiblioteca.REPOSITORY.AutorRepository;

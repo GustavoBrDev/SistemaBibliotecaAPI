@@ -1,4 +1,4 @@
-package com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST;
+package com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.AUTOR;
 
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY.Autor;
 import jakarta.validation.constraints.NotBlank;
