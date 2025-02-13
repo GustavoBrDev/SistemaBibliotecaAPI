@@ -1,6 +1,6 @@
 package com.sistema.biblioteca.sistemaBiblioteca.SERVICE;
 
-import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.LIVRO.LivroPullRequestDto;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.LIVRO.LivroPutRequestDto;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.LIVRO.LivroRequestDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.LIVRO.LivroFullResponseDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY.Livro;
@@ -41,11 +41,11 @@ public class LivroService {
         return repository.findByEmprestado(true).stream().map(Livro::converterTudo).toList();
     }
 
-    public LivroFullResponseDTO atualizarLivro (LivroPullRequestDto livroPullRequestDto, Integer id ){
+    public LivroFullResponseDTO atualizarLivro (LivroPutRequestDto livroPutRequestDto, Integer id ){
 
         if ( !repository.existsById(id) ){
-            livroPullRequestDto.setId(id);
-            return repository.save( livroPullRequestDto.converter() ).converterTudo();
+            livroPutRequestDto.setId(id);
+            return repository.save( livroPutRequestDto.converter() ).converterTudo();
         }
 
         throw new RuntimeException("Livro não encontrado");

@@ -1,6 +1,6 @@
 package com.sistema.biblioteca.sistemaBiblioteca.SERVICE;
 
-import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.GENERO.GeneroPullRequestDTO;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.GENERO.GeneroPutRequestDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.GENERO.GeneroRequestDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.GENERO.GeneroFullResponseDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY.Genero;
@@ -28,10 +28,10 @@ import java.util.List;
         }
 
 
-        public GeneroFullResponseDTO atualizarGenero (Integer id, GeneroPullRequestDTO generoPullRequestDTO ) {
+        public GeneroFullResponseDTO atualizarGenero (Integer id, GeneroPutRequestDTO generoPutRequestDTO) {
 
         if ( repository.existsById(id) ) {
-            Genero genero = generoPullRequestDTO.converter();
+            Genero genero = generoPutRequestDTO.converter();
             genero.setId(id);
             return repository.save(genero).converterTudo();
         }

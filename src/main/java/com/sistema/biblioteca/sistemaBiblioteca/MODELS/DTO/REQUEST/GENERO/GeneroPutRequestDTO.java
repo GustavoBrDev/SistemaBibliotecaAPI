@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
-public record GeneroPullRequestDTO(@NotNull @Positive Integer id, @NotBlank String nome, String descricao ) {
+public record GeneroPutRequestDTO(@NotNull @Positive Integer id, @NotBlank String nome, String descricao ) {
 
     public Genero converter() {
         return Genero.builder()

@@ -1,15 +1,19 @@
 package com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY;
 
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.EmprestimoResponseDTO;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.USUARIO.UsuarioFullResponseDTO;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.USUARIO.UsuarioResponseDTO;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Usuario {
 
     @Id
@@ -30,4 +34,32 @@ public class Usuario {
 
     @OneToMany
     private List<Emprestimo> emprestimos;
+
+    public UsuarioFullResponseDTO converterTudo() {
+        return UsuarioFullResponseDTO.builder()
+                .id(this.id)
+                .nome(this.nome)
+                .email(this.email)
+                .emprestimos(this.converterEmprestimos())
+                .build();
+    }
+
+    public UsuarioResponseDTO converter() {
+        return UsuarioResponseDTO.builder()
+                .id(this.id)
+                .nome(this.nome)
+                .email(this.email)
+                .build();
+    }
+
+    public List<EmprestimoResponseDTO> converterEmprestimos() {
+
+        List<EmprestimoResponseDTO> conversao = new ArrayList<>();
+
+        for ( Emprestimo emprestimo : this.emprestimos ) {
+            conversao.add( emprestimo.converter() );
+        }
+
+        return conversao;
+    }
 }

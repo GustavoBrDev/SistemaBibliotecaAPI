@@ -1,6 +1,6 @@
 package com.sistema.biblioteca.sistemaBiblioteca.CONTROLLER;
 
-import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.GENERO.GeneroPullRequestDTO;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.GENERO.GeneroPutRequestDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.GENERO.GeneroRequestDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.GENERO.GeneroFullResponseDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.SERVICE.GeneroService;
@@ -30,10 +30,11 @@ public class GeneroController {
         }
     }
 
+
     @PutMapping
-    public ResponseEntity<GeneroFullResponseDTO> atualizarGenero ( @RequestBody @Valid GeneroPullRequestDTO generoPullRequestDTO, @RequestParam Integer id ) {
+    public ResponseEntity<GeneroFullResponseDTO> atualizarGenero (@RequestBody @Valid GeneroPutRequestDTO generoPutRequestDTO, @RequestParam Integer id ) {
         try {
-            GeneroFullResponseDTO generoFullResponseDTO = service.atualizarGenero( id, generoPullRequestDTO );
+            GeneroFullResponseDTO generoFullResponseDTO = service.atualizarGenero( id, generoPutRequestDTO);
             return new ResponseEntity<>( generoFullResponseDTO, HttpStatus.OK );
         } catch ( RuntimeException e ) {
             return new ResponseEntity<>( HttpStatus.BAD_REQUEST );

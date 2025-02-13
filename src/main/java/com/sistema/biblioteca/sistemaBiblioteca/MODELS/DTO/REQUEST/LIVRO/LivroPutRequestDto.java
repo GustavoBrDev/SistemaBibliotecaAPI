@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class LivroPullRequestDto {
+public class LivroPutRequestDto {
 
     @NotNull
     @Positive

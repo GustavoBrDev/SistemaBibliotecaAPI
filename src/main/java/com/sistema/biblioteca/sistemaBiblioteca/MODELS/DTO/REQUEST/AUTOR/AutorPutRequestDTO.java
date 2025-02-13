@@ -7,19 +7,18 @@ import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 @Data
-public class AutorPullRequestDTO {
+public record AutorPutRequestDTO(
 
     @NotNull
     @Positive
-    private Integer id;
+    Integer id,
+
+    @NotBlank String nome,
 
     @NotBlank
-    private String nome;
+    String dataNascimento,
 
-    @NotBlank
-    private String dataNascimento;
-
-    private String biografia;
+    String biografia ){
 
     public Autor converter() {
         return Autor.builder().

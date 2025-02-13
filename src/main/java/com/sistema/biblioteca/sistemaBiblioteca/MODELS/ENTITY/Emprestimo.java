@@ -1,6 +1,7 @@
 package com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.EmprestimoResponseDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -41,4 +42,15 @@ public class Emprestimo {
     @ToString.Exclude
     @JsonIgnore
     private Usuario usuario;
+
+    public EmprestimoResponseDTO converter() {
+        return EmprestimoResponseDTO.builder().
+                id(this.id).
+                dataInicio(this.dataInicio).
+                dataDevolucao(this.dataDevolucao).
+                valorMulta(this.valorMulta).
+                devolvido(this.devolvido).
+                livro(this.livro.converterTudo()).
+                build();
+    }
 }

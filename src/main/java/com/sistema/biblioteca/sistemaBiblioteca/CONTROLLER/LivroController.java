@@ -1,6 +1,6 @@
 package com.sistema.biblioteca.sistemaBiblioteca.CONTROLLER;
 
-import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.LIVRO.LivroPullRequestDto;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.LIVRO.LivroPutRequestDto;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.LIVRO.LivroRequestDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.LIVRO.LivroFullResponseDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.SERVICE.LivroService;
@@ -32,11 +32,11 @@ public class LivroController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<LivroFullResponseDTO> atualizarLivro (@RequestBody @Valid LivroPullRequestDto livroPullRequestDto, @RequestParam Integer id ) {
+    public ResponseEntity<LivroFullResponseDTO> atualizarLivro (@RequestBody @Valid LivroPutRequestDto livroPutRequestDto, @RequestParam Integer id ) {
 
         try {
 
-            LivroFullResponseDTO livroFullResponseDTO = service.atualizarLivro( livroPullRequestDto, id );
+            LivroFullResponseDTO livroFullResponseDTO = service.atualizarLivro(livroPutRequestDto, id );
             return new ResponseEntity<>( livroFullResponseDTO, HttpStatus.OK );
 
         } catch ( RuntimeException e ) {
