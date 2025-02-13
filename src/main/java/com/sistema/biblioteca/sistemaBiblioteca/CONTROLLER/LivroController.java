@@ -1,5 +1,6 @@
 package com.sistema.biblioteca.sistemaBiblioteca.CONTROLLER;
 
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.LIVRO.LivroPullRequestDto;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.LIVRO.LivroRequestDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.LIVRO.LivroFullResponseDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.SERVICE.LivroService;
@@ -32,11 +33,13 @@ public class LivroController {
 
     // Isso daqui vai ter que ser mudado por causa do DTO do livro (ele não tem o id)
     @PutMapping("/{id}")
-    public ResponseEntity<LivroFullResponseDTO> atualizarLivro ( @RequestBody @Valid LivroRequestDTO livroRequestDTO, @RequestParam Integer id ) {
+    public ResponseEntity<LivroFullResponseDTO> atualizarLivro (@RequestBody @Valid LivroPullRequestDto livroPullRequestDto, @RequestParam Integer id ) {
 
         try {
-            LivroFullResponseDTO livroFullResponseDTO = service.atualizarLivro( livroRequestDTO, id );
+
+            LivroFullResponseDTO livroFullResponseDTO = service.atualizarLivro( livroPullRequestDto, id );
             return new ResponseEntity<>( livroFullResponseDTO, HttpStatus.OK );
+
         } catch ( RuntimeException e ) {
             return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
         }
