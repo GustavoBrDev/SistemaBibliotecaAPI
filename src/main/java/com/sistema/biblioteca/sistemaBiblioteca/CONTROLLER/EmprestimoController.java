@@ -19,6 +19,13 @@ public class EmprestimoController {
 
     private EmprestimoService service;
 
+    /**
+     * Creates a new loan for a given user and book.
+     *
+     * @param emprestimoRequestDTO The {@link EmprestimoRequestDTO} containing the user and book IDs.
+     * @return A {@link ResponseEntity} containing the created {@link EmprestimoFullResponseDTO} or a 400 status code if the input is invalid.
+     * @see EmprestimoService#criarEmprestimo(EmprestimoRequestDTO)
+     */
     @PostMapping
     public ResponseEntity<EmprestimoFullResponseDTO> criarEmprestimo ( EmprestimoRequestDTO emprestimoRequestDTO ) {
 
@@ -29,6 +36,14 @@ public class EmprestimoController {
         }
     }
 
+    /**
+     * Updates an existing loan with the provided data.
+     *
+     * @param emprestimoPutRequestDTO The {@link EmprestimoPutRequestDTO} containing the updated loan data.
+     * @param id The ID of the loan to be updated.
+     * @return A {@link ResponseEntity} containing the updated {@link EmprestimoFullResponseDTO} or a 400 status code if the update fails.
+     * @see EmprestimoService#atualizarEmprestimo(EmprestimoPutRequestDTO, Integer)
+     */
     @PutMapping
     public ResponseEntity<EmprestimoFullResponseDTO> atualizarEmprestimo ( EmprestimoPutRequestDTO emprestimoPutRequestDTO, @RequestParam Integer id ) {
 
@@ -39,6 +54,13 @@ public class EmprestimoController {
         }
     }
 
+    /**
+     * Returns the loan with the given ID.
+     *
+     * @param id The ID of the loan to be returned.
+     * @return A {@link ResponseEntity} containing the requested {@link EmprestimoFullResponseDTO} or a 400 status code if the loan is not found.
+     * @see EmprestimoService#buscarEmprestimo(Integer)
+     */
     @GetMapping("/{id}")
     public ResponseEntity<EmprestimoFullResponseDTO> buscarEmprestimo ( @RequestParam Integer id ) {
 
@@ -49,6 +71,12 @@ public class EmprestimoController {
         }
     }
 
+    /**
+     * Returns a list of all existing loans.
+     *
+     * @return A {@link ResponseEntity} containing a list of {@link EmprestimoFullResponseDTO} objects or a 400 status code if the input is invalid.
+     * @see EmprestimoService#listarEmprestimos()
+     */
     @GetMapping
     public ResponseEntity<List<EmprestimoFullResponseDTO>> listarEmprestimos () {
 
@@ -59,6 +87,13 @@ public class EmprestimoController {
         }
     }
 
+    /**
+     * Marks the loan with the given ID as returned.
+     *
+     * @param id The ID of the loan to be marked as returned.
+     * @return A {@link ResponseEntity} containing a 200 status code if the loan is found and successfully marked as returned, or a 400 status code if the loan is not found.
+     * @see EmprestimoService#terminarEmprestimo(Integer)
+     */
     @PatchMapping("/{id}")
     public ResponseEntity<EmprestimoFullResponseDTO> devolverLivro ( @PathVariable @Positive Integer id ) {
 
@@ -70,6 +105,13 @@ public class EmprestimoController {
         }
     }
 
+    /**
+     * Deletes the loan with the given ID.
+     *
+     * @param id The ID of the loan to be deleted.
+     * @return A {@link ResponseEntity} containing a 200 status code if the loan is found and successfully deleted, or a 400 status code if the loan is not found.
+     * @see EmprestimoService#deletarEmprestimo(Integer)
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarEmprestimo ( @PathVariable @Positive Integer id ) {
 

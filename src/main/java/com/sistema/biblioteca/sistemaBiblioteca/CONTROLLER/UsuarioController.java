@@ -20,6 +20,12 @@ public class UsuarioController {
 
     private UsuarioService service;
 
+    /**
+     * Creates a new user and returns it with status 201 (Created).
+     *
+     * @param usuarioRequestDTO The user to be created.
+     * @return The created user.
+     */
     @PostMapping
     public ResponseEntity<UsuarioFullResponseDTO> criarUsuario ( @RequestBody @Valid UsuarioRequestDTO usuarioRequestDTO ) {
 
@@ -31,6 +37,14 @@ public class UsuarioController {
         }
     }
 
+    /**
+     * Updates an existing user and returns the updated user.
+     *
+     * @param usuarioPutRequestDTO The updated user data.
+     * @param id The ID of the user to be updated.
+     * @return A ResponseEntity containing the updated user and an HTTP status code.
+     * Returns HttpStatus.OK if the operation is successful, otherwise returns HttpStatus.BAD_REQUEST.
+     */
     @PutMapping
     public ResponseEntity<UsuarioFullResponseDTO> atualizarUsuario ( @RequestBody @Valid UsuarioPutRequestDTO usuarioPutRequestDTO, @RequestParam Integer id ) {
 
@@ -42,6 +56,12 @@ public class UsuarioController {
         }
     }
 
+    /**
+     * Retrieves a list of all users.
+     *
+     * @return A ResponseEntity containing a list of {@link UsuarioFullResponseDTO} and an HTTP status code.
+     * Returns HttpStatus.OK if the operation is successful, otherwise returns HttpStatus.BAD_REQUEST.
+     */
     @GetMapping
     public ResponseEntity<List<UsuarioFullResponseDTO>> listarUsuarios () {
 
@@ -52,6 +72,13 @@ public class UsuarioController {
         }
     }
 
+    /**
+     * Retrieves a user by their ID.
+     *
+     * @param id The ID of the user to be retrieved.
+     * @return A ResponseEntity containing the retrieved user and an HTTP status code.
+     * Returns HttpStatus.OK if the operation is successful, otherwise returns HttpStatus.BAD_REQUEST.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioFullResponseDTO> buscarUsuario ( @PathVariable @Positive Integer id ) {
 
@@ -63,6 +90,12 @@ public class UsuarioController {
         }
     }
 
+    /**
+     * Deletes a user by their ID.
+     * @param id The ID of the user to be deleted.
+     * @return A ResponseEntity containing an HTTP status code.
+     * Returns HttpStatus.OK if the operation is successful, otherwise returns HttpStatus.BAD_REQUEST.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarUsuario ( @PathVariable @Positive Integer id ) {
 

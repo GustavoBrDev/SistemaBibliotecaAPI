@@ -20,6 +20,12 @@ public class GeneroController {
 
     private GeneroService service;
 
+    /**
+     * Creates a new genre.
+     *
+     * @param generoRequestDTO genre data.
+     * @return Created genre data.
+     */
     @PostMapping
     public ResponseEntity<GeneroFullResponseDTO> criarGenero ( @RequestBody @Valid GeneroRequestDTO generoRequestDTO ) {
         try {
@@ -31,6 +37,13 @@ public class GeneroController {
     }
 
 
+    /**
+     * Updates an existing genre.
+     *
+     * @param generoPutRequestDTO Genre data to be updated.
+     * @param id                 Genre ID.
+     * @return Updated genre data.
+     */
     @PutMapping
     public ResponseEntity<GeneroFullResponseDTO> atualizarGenero (@RequestBody @Valid GeneroPutRequestDTO generoPutRequestDTO, @RequestParam Integer id ) {
         try {
@@ -41,6 +54,12 @@ public class GeneroController {
         }
     }
 
+    /**
+     * Retrieves a list of all genres.
+     *
+     * @return A ResponseEntity containing a list of GeneroFullResponseDTO and an HTTP status code.
+     *         Returns HttpStatus.OK if the operation is successful, otherwise returns HttpStatus.BAD_REQUEST.
+     */
     @GetMapping
     public ResponseEntity<List<GeneroFullResponseDTO>> listarGeneros () {
         try {
@@ -50,6 +69,13 @@ public class GeneroController {
         }
     }
 
+    /**
+     * Retrieves a genre by its ID.
+     *
+     * @param id Genre ID.
+     * @return A ResponseEntity containing a GeneroFullResponseDTO and an HTTP status code.
+     *         Returns HttpStatus.OK if the operation is successful, otherwise returns HttpStatus.BAD_REQUEST.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<GeneroFullResponseDTO> buscarGenero ( @PathVariable @Positive Integer id ) {
         try {
@@ -60,6 +86,13 @@ public class GeneroController {
         }
     }
 
+    /**
+     * Deletes a genre by its ID.
+     *
+     * @param id Genre ID.
+     * @return A ResponseEntity containing an HTTP status code.
+     *         Returns HttpStatus.OK if the operation is successful, otherwise returns HttpStatus.BAD_REQUEST.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarGenero ( @PathVariable @Positive Integer id ) {
         try {
