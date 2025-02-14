@@ -1,16 +1,16 @@
 package com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.EmprestimoResponseDTO;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.EMPRESTIMO.EmprestimoFullResponseDTO;
+import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.EMPRESTIMO.EmprestimoResponseDTO;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @Data
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Emprestimo {
 
     @Id
@@ -51,6 +51,18 @@ public class Emprestimo {
                 valorMulta(this.valorMulta).
                 devolvido(this.devolvido).
                 livro(this.livro.converterTudo()).
+                build();
+    }
+
+    public EmprestimoFullResponseDTO converterTudo() {
+        return EmprestimoFullResponseDTO.builder().
+                id(this.id).
+                dataInicio(this.dataInicio).
+                dataDevolucao(this.dataDevolucao).
+                valorMulta(this.valorMulta).
+                devolvido(this.devolvido).
+                livro(this.livro.converterTudo()).
+                usuario(this.usuario.converter()).
                 build();
     }
 }

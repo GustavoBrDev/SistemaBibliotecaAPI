@@ -51,6 +51,26 @@ public class LivroService {
         throw new RuntimeException("Livro não encontrado");
     }
 
+    public void emprestarLivro ( Integer id ){
+
+        if ( repository.existsById(id) ){
+            Livro livro = repository.findById(id).get();
+            livro.setEmprestado(true);
+            repository.save(livro);
+        }
+
+        throw new RuntimeException("Livro não encontrado");
+    }
+
+    public void devolverLivro ( Integer id ){
+
+        if ( repository.existsById(id) ){
+            Livro livro = repository.findById(id).get();
+            livro.setEmprestado(false);
+            repository.save(livro);
+        }
+    }
+
     public void deletarLivro ( Integer id ){
 
         if ( repository.existsById(id) ){
