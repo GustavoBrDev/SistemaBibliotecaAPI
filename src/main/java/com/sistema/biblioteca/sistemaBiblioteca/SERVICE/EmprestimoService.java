@@ -17,6 +17,12 @@ public class EmprestimoService {
     private EmprestimoRepository repository;
     private LivroService livroService;
 
+    /**
+     * Creates a new loan for a given user and book.
+     *
+     * @param emprestimoRequestDTO The {@link EmprestimoRequestDTO} containing the user and book IDs.
+     * @return A {@link EmprestimoFullResponseDTO} containing the created loan data.
+     */
     public EmprestimoFullResponseDTO criarEmprestimo ( EmprestimoRequestDTO emprestimoRequestDTO ) {
 
         Emprestimo emprestimo = emprestimoRequestDTO.converter();
@@ -30,6 +36,14 @@ public class EmprestimoService {
         return repository.save( emprestimo ).converterTudo();
     }
 
+    /**
+     * Updates an existing loan with the provided data.
+     *
+     * @param emprestimoPutRequestDTO The {@link EmprestimoPutRequestDTO} containing the updated loan data.
+     * @param id The ID of the loan to be updated.
+     * @return A {@link EmprestimoFullResponseDTO} containing the updated loan data.
+     * @throws RuntimeException If the loan is not found.
+     */
     public EmprestimoFullResponseDTO atualizarEmprestimo (EmprestimoPutRequestDTO emprestimoPutRequestDTO, Integer id ) {
 
         try {
@@ -48,6 +62,13 @@ public class EmprestimoService {
         }
     }
 
+    /**
+     * Returns the loan with the given ID.
+     *
+     * @param id The ID of the loan to be returned.
+     * @return A {@link EmprestimoFullResponseDTO} containing the loan data.
+     * @throws RuntimeException If the loan is not found.
+     */
     public EmprestimoFullResponseDTO buscarEmprestimo ( Integer id ) {
         try {
             return repository.findById( id ).get().converterTudo();
@@ -56,6 +77,12 @@ public class EmprestimoService {
         }
     }
 
+    /**
+     * Returns a list of all existing loans.
+     *
+     * @return A list of {@link EmprestimoFullResponseDTO} objects containing the loan data.
+     * @throws RuntimeException If there are no loans.
+     */
     public List<EmprestimoFullResponseDTO> listarEmprestimos () {
         try {
             return repository.findAll().stream().map(Emprestimo::converterTudo).toList();
@@ -64,6 +91,13 @@ public class EmprestimoService {
         }
     }
 
+    /**
+     * Marks the loan with the given ID as returned.
+     *
+     * @param id The ID of the loan to be marked as returned.
+     * @return A {@link EmprestimoFullResponseDTO} containing the updated loan data.
+     * @throws RuntimeException If the loan is not found.
+     */
     public EmprestimoFullResponseDTO terminarEmprestimo ( Integer id ) {
         try {
             Emprestimo emprestimo = repository.findById( id ).get();
@@ -76,6 +110,12 @@ public class EmprestimoService {
         }
     }
 
+    /**
+     * Deletes the loan with the given ID.
+     *
+     * @param id The ID of the loan to be deleted.
+     * @throws RuntimeException If the loan is not found.
+     */
     public void deletarEmprestimo ( Integer id ) {
         try {
             repository.deleteById(id);

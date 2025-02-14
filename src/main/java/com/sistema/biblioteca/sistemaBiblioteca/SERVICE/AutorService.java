@@ -16,6 +16,13 @@ public class AutorService {
 
     private AutorRepository repository;
 
+    /**
+     * Creates a new author and returns the created author with full details.
+     *
+     * @param autorRequestDTO The author details to be created.
+     * @return The created author's full response DTO.
+     * @throws RuntimeException if an author with the same name already exists.
+     */
     public AutorFullResponseDTO criarAutor (AutorRequestDTO autorRequestDTO ) {
 
         Autor autor = autorRequestDTO.converter();
@@ -27,6 +34,14 @@ public class AutorService {
         return repository.save( autor ).converterTudo();
     }
 
+    /**
+     * Updates an existing author and returns the updated author with full details.
+     *
+     * @param autorRequestDTO The updated author details.
+     * @param id              The ID of the author to be updated.
+     * @return The updated author's full response DTO.
+     * @throws RuntimeException if the author with the given ID does not exist.
+     */
     public AutorFullResponseDTO atualizarAutor (AutorPutRequestDTO autorRequestDTO, Integer id) {
 
         if ( repository.existsById(id) ) {
@@ -38,6 +53,13 @@ public class AutorService {
         throw new RuntimeException("Autor não encontrado");
     }
 
+    /**
+     * Retrieves an author by their ID and returns the author's full details.
+     *
+     * @param id The ID of the author to be retrieved.
+     * @return The author's full response DTO.
+     * @throws RuntimeException if the author with the given ID does not exist.
+     */
     public AutorFullResponseDTO buscarAutor ( Integer id ) {
 
         try {
@@ -48,10 +70,21 @@ public class AutorService {
 
     }
 
+    /**
+     * Retrieves a list of all authors.
+     *
+     * @return A list of full response DTOs of all authors.
+     */
     public List<AutorFullResponseDTO> listarAutores () {
         return repository.findAll().stream().map(Autor::converterTudo).toList();
     }
 
+    /**
+     * Deletes an author by their ID.
+     *
+     * @param id The ID of the author to be deleted.
+     * @throws RuntimeException if the author with the given ID does not exist.
+     */
     public void deletarAutor ( Integer id ) {
 
         if ( repository.existsById(id) ) {
