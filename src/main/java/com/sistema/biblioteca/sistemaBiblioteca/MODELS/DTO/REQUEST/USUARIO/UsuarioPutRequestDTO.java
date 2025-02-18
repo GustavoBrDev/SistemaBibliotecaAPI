@@ -11,6 +11,10 @@ import jakarta.validation.constraints.Positive;
  * @author Gustavo Stinghen
  * @version 1.0
  * @since 2025
+ * @param id id do usuario a ser atualizado
+ * @param nome nome do usuario a ser atualizado
+ * @param email email do usuario a ser atualizado
+ * @param senha senha do usuario a ser atualizado
  */
 public record UsuarioPutRequestDTO(@NotNull @Positive Integer id, @NotBlank String nome, @NotBlank String email, @NotBlank String senha ) {
 

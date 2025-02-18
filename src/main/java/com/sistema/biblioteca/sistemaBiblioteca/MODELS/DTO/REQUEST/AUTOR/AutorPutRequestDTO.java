@@ -12,6 +12,10 @@ import lombok.Data;
  * @author Gustavo Stinghen
  * @version 1.0
  * @since 2025
+ * @param id id do autor a ser atualizado
+ * @param nome nome do autor a ser atualizado
+ * @param dataNascimento data de nascimento do autor a ser atualizado
+ * @param biografia biografia do autor a ser atualizado (opcional)
  */
 public record AutorPutRequestDTO(
 

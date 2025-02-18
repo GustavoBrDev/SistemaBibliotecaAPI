@@ -13,6 +13,12 @@ import jakarta.validation.constraints.Positive;
  * @author Gustavo Stinghen
  * @version 1.0
  * @since 2025
+ * @param dataInicio data de inicio do emprestimo a ser criado
+ * @param dataDevolucao data de devolucao do emprestimo a ser criado
+ * @param valorMulta valor da multa a ser cobrada para o emprestimo a ser criado (opcional)
+ * @param devolvido status de devolucao do emprestimo a ser criado
+ * @param livro livro a ser emprestado
+ * @param usuario usuario que solicitou o emprestimo
  */
 public record EmprestimoRequestDTO(@NotBlank String dataInicio, @NotBlank String dataDevolucao, @Positive Float valorMulta, @NotNull Boolean devolvido, @NotNull LivroRequestDTO livro, @NotNull UsuarioRequestDTO usuario) {
 

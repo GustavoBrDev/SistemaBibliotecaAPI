@@ -11,6 +11,12 @@ import lombok.NonNull;
  * @author Gustavo Stinghen
  * @version 1.0
  * @since 2025
+ * @param nome nome do livro a ser criado
+ * @param dataLancamento data de lancamento do livro a ser criado
+ * @param sinopse sinopse do livro a ser criado (opcional)
+ * @param quantidadePaginas quantidade de paginas do livro a ser criado
+ * @param isbn isbn do livro a ser criado
+ * @param emprestado booleano indicando se o livro foi emprestado
  */
 public record LivroRequestDTO(
         @NotBlank String nome,

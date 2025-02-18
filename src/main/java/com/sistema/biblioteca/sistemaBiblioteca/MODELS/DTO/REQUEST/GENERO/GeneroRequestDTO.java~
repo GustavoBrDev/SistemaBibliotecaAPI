@@ -10,8 +10,6 @@ import lombok.Data;
  * @author Gustavo Stinghen
  * @version 1.0
  * @since 2025
- * @param nome nome do genero a ser criado
- * @param descricao descricao do genero a ser criado (opcional)
  */
 public record GeneroRequestDTO( @NotBlank String nome, String descricao) {
 

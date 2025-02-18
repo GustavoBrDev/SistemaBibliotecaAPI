@@ -4,7 +4,6 @@ import com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY.Livro;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -13,33 +12,39 @@ import lombok.Data;
  * @author Gustavo Stinghen
  * @version 1.0
  * @since 2025
+ * @param id id do livro a ser atualizado
+ * @param nome nome do livro a ser atualizado
+ * @param dataLancamento data de lancamento do livro a ser atualizado
+ * @param sinopse sinopse do livro a ser atualizado
+ * @param quantidadePaginas quantidade de paginas do livro a ser atualizado
+ * @param isbn isbn do livro a ser atualizado
+ * @param emprestado status de emprestimo do livro a ser atualizado
  */
-@Builder
-@Data
-public class LivroPutRequestDto {
+public record LivroPutRequestDto (
 
     @NotNull
     @Positive
-    private Integer id;
+    Integer id,
 
     @NotBlank
-    private String nome;
+    String nome,
 
     @NotBlank
-    private String dataLancamento;
+    String dataLancamento,
 
-    private String sinopse;
+    String sinopse,
 
     @NotNull
     @Positive
-    private Integer quantidadePaginas;
+    Integer quantidadePaginas,
 
     @NotNull
-    private Long isbn;
+    Long isbn,
 
     @NotNull
-    private Boolean emprestado;
+    Boolean emprestado
 
+){
 
     public Livro converter() {
         return Livro.builder()

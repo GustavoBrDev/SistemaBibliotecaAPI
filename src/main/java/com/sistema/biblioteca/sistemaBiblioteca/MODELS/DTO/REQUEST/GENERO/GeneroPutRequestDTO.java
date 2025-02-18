@@ -11,6 +11,9 @@ import jakarta.validation.constraints.Positive;
  * @author Gustavo Stinghen
  * @version 1.0
  * @since 2025
+ * @param id id do gênero a ser atualizado
+ * @param nome nome do gênero a ser atualizado
+ * @param descricao descrição do gênero a ser atualizado (opcional)
  */
 public record GeneroPutRequestDTO(@NotNull @Positive Integer id, @NotBlank String nome, String descricao ) {
 

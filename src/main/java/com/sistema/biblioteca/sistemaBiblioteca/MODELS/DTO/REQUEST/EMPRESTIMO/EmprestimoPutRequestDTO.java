@@ -14,6 +14,13 @@ import jakarta.validation.constraints.Positive;
  * @author Gustavo Stinghen
  * @version 1.0
  * @since 2025
+ * @param id id do emprestimo a ser atualizado
+ * @param dataDevolucao data de devolucao do emprestimo a ser atualizado
+ * @param dataInicio data de inicio do emprestimo a ser atualizado
+ * @param valorMulta valor da multa do emprestimo a ser atualizado (opcional)
+ * @param devolvido booleano indicando se o emprestimo foi devolvido
+ * @param livro livro a ser emprestado
+ * @param usuario usuario que emprestou o livro
  */
 public record EmprestimoPutRequestDTO(@NotNull @Positive Integer id, @NotBlank String dataDevolucao, @NotBlank String dataInicio, Float valorMulta, @NotNull Boolean devolvido, @Valid LivroRequestDTO livro, @Valid UsuarioRequestDTO usuario) {
 

@@ -9,6 +9,9 @@ import jakarta.validation.constraints.NotBlank;
  * @author Gustavo Stinghen
  * @version 1.0
  * @since 2025
+ * @param nome nome do usuario a ser criado
+ * @param email email do usuario a ser criado
+ * @param senha senha do usuario a ser criado
  */
 public record UsuarioRequestDTO(@NotBlank String nome, @NotBlank String email, @NotBlank String senha ) {
 
