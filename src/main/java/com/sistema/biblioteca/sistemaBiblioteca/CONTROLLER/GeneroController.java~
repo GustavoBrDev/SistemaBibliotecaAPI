@@ -96,10 +96,11 @@ public class GeneroController {
     }
 
     /**
-     * Método DELETE para deletar um genero
-     * @param id O ID do genero a ser deletado
-     * @return Um ResponseEntity contendo o status HTTP 200 (OK) ou o status HTTP 400 (Bad Request).
-     * @see GeneroService#deletarGenero(Integer)
+     * Deletes a genre by its ID.
+     *
+     * @param id Genre ID.
+     * @return A ResponseEntity containing an HTTP status code.
+     *         Returns HttpStatus.OK if the operation is successful, otherwise returns HttpStatus.BAD_REQUEST.
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarGenero ( @PathVariable @Positive Integer id ) {

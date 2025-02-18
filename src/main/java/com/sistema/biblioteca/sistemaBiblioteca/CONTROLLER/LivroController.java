@@ -13,19 +13,29 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Classe de controle para o recurso de livros.
+ * @see LivroService, Livro
+ * @author Gustavo Stinghen
+ * @version 1.0
+ * @since 2025
+ */
 @RestController
 @RequestMapping("/livros")
 @AllArgsConstructor
 public class LivroController {
 
+    /**
+     * Serviço de livros que permite criar, atualizar, buscar, listar e deletar livros
+     * @see LivroService
+     */
     public LivroService service;
 
     /**
-     * Creates a new book.
-     *
-     * @param livroRequestDTO the information of the book to be created
-     * @return a response entity with the created book
-     * @throws RuntimeException if the creation fails
+     * Método POST para criar um novo livro
+     * @param livroRequestDTO A {@link LivroRequestDTO} contendo os dados do livro
+     * @return Um ResponseEntity contendo o livro criado e o status HTTP 201 (Created) ou o status HTTP 400 (Bad Request).
+     * @see LivroService#criarLivro(LivroRequestDTO), LivroRequestDTO, LivroFullResponseDTO
      */
     @PostMapping
     public ResponseEntity<LivroFullResponseDTO> criarLivro ( @RequestBody @Valid LivroRequestDTO livroRequestDTO ) {
@@ -39,11 +49,11 @@ public class LivroController {
     }
 
     /**
-     * Updates an existing book and returns the updated book.
-     * @param livroPutRequestDto the updated book
-     * @param id the ID of the book to be updated
-     * @return a response entity with the updated book
-     * @throws RuntimeException if the update fails
+     * Método de PUT para atualizar um livro
+     * @param livroPutRequestDto O {@link LivroPutRequestDto} contendo os dados atualizados do livro
+     * @param id O ID do livro a ser atualizado
+     * @return Um ResponseEntity contendo o livro atualizado e o status HTTP 200 (OK) ou o status HTTP 400 (Bad Request).
+     * @see LivroService#atualizarLivro(LivroPutRequestDto, Integer), LivroFullResponseDTO
      */
     @PutMapping("/{id}")
     public ResponseEntity<LivroFullResponseDTO> atualizarLivro (@RequestBody @Valid LivroPutRequestDto livroPutRequestDto, @RequestParam Integer id ) {
@@ -59,12 +69,10 @@ public class LivroController {
     }
 
     /**
-     * Retrieves a book by its ID.
-     *
-     * @param id the ID of the book to be retrieved
-     * @return a response entity containing the book details and HTTP status OK,
-     *         or an HTTP status BAD_REQUEST if the book is not found
-     * @throws RuntimeException if the retrieval fails
+     * Método GET para buscar um livro existente
+     * @param id O ID do livro a ser buscado
+     * @return Um ResponseEntity contendo o livro buscado e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
+     * @see LivroService#buscarLivro(Integer), LivroFullResponseDTO
      */
     @GetMapping("/{id}")
     public ResponseEntity<LivroFullResponseDTO> buscarLivro ( @PathVariable @Positive Integer id ) {
@@ -73,64 +81,56 @@ public class LivroController {
             LivroFullResponseDTO livroFullResponseDTO = service.buscarLivro( id );
             return new ResponseEntity<>( livroFullResponseDTO, HttpStatus.OK );
         } catch ( RuntimeException e ) {
-            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+            return new ResponseEntity<>( HttpStatus.NOT_FOUND );
         }
     }
 
     /**
-     * Retrieves a list of all books.
-     * @return a response entity containing a list of book details and HTTP status OK,
-     *         or an HTTP status BAD_REQUEST if the retrieval fails
-     * @throws RuntimeException if the retrieval fails
+     * Método GET para listar todos os livros existentes
+     * @return Um ResponseEntity contendo a lista de livros e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
+     * @see LivroService#listarLivros(), LivroFullResponseDTO
      */
     @GetMapping
     public ResponseEntity<List<LivroFullResponseDTO>> listarLivros () {
         try {
             return new ResponseEntity<>( service.listarLivros(), HttpStatus.OK );
         } catch ( RuntimeException e ) {
-            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+            return new ResponseEntity<>( HttpStatus.NOT_FOUND );
         }
     }
 
     /**
-     * Retrieves a list of books that are available to be borrowed.
-     *
-     * @return a response entity containing a list of book details and HTTP status OK,
-     *         or an HTTP status BAD_REQUEST if the retrieval fails
-     * @throws RuntimeException if the retrieval fails
+     * Método GET para listar todos os livros disponiveis
+     * @return Um ResponseEntity contendo a lista de livros disponiveis e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
+     * @see LivroService#listarLivrosDisponiveis(), LivroFullResponseDTO, Livro
      */
     @GetMapping("/disponiveis")
     public ResponseEntity<List<LivroFullResponseDTO>> listarLivrosDisponiveis () {
         try {
             return new ResponseEntity<>( service.listarLivrosDisponiveis(), HttpStatus.OK );
         } catch ( RuntimeException e ) {
-            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+            return new ResponseEntity<>( HttpStatus.NOT_FOUND );
         }
     }
 
     /**
-     * Retrieves a list of all books that have been borrowed.
-     *
-     * @return a response entity containing a list of book details and HTTP status OK,
-     *         or an HTTP status BAD_REQUEST if the retrieval fails
-     * @throws RuntimeException if the retrieval fails
+     * Metodo GET para listar todos os livros emprestados
+     * @return Um ResponseEntity contendo a lista de livros emprestados e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
+     * @see LivroService#listarLivrosEmprestados(), LivroFullResponseDTO, Livro
      */
     @GetMapping("/emprestados")
     public ResponseEntity<List<LivroFullResponseDTO>> listarLivrosEmprestados () {
         try {
             return new ResponseEntity<>( service.listarLivrosEmprestados(), HttpStatus.OK );
         } catch ( RuntimeException e ) {
-            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+            return new ResponseEntity<>( HttpStatus.NOT_FOUND );
         }
     }
 
     /**
-     * Retrieves a list of books that are either available or unavailable to be borrowed, based on the provided parameter.
-     *
-     * @param disponibilidade if true, returns a list of available books; if false, returns a list of unavailable books
-     * @return a response entity containing a list of book details and HTTP status OK,
-     *         or an HTTP status BAD_REQUEST if the retrieval fails
-     * @throws RuntimeException if the retrieval fails
+     * Metodo GET para listar todos os livros disponiveis ou emprestados
+     * @return Um ResponseEntity contendo a lista de livros disponiveis ou emprestados e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
+     * @see LivroService#listarLivrosDisponiveis(), LivroService#listarLivrosEmprestados(), LivroFullResponseDTO, Livro
      */
     @GetMapping
     public ResponseEntity<List<LivroFullResponseDTO>> listarLivrosPorDispobinilidade ( @RequestParam Boolean disponibilidade ) {
@@ -138,16 +138,15 @@ public class LivroController {
         try {
             return new ResponseEntity<>( disponibilidade ? service.listarLivrosDisponiveis() : service.listarLivrosEmprestados(), HttpStatus.OK );
         } catch ( RuntimeException e ) {
-            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
+            return new ResponseEntity<>( HttpStatus.NOT_FOUND );
         }
     }
 
     /**
-     * Deletes a book by its ID.
-     * @param id the ID of the book to be deleted
-     * @return an HTTP status OK if the deletion is successful,
-     *         or an HTTP status BAD_REQUEST if the deletion fails
-     * @throws RuntimeException if the deletion fails
+     * Metodo DELETE para deletar um livro pelo ID
+     * @param id O ID do livro a ser deletado
+     * @return Um ResponseEntity contendo o status HTTP 200 (OK) ou o status HTTP 400 (Bad Request).
+     * @see LivroService#deletarLivro(Integer)
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarLivro ( @PathVariable @Positive Integer id ) {

@@ -2,7 +2,6 @@ package com.sistema.biblioteca.sistemaBiblioteca.CONTROLLER;
 
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.AUTOR.AutorPutRequestDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.AUTOR.AutorRequestDTO;
-import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.EMPRESTIMO.EmprestimoRequestDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.AUTOR.AutorFullResponseDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.SERVICE.AutorService;
 import jakarta.validation.Valid;
@@ -14,30 +13,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * Classe de controle para o recurso de autores.
- * @see AutorService, Autor
- * @author Gustavo Stinghen
- * @version 1.0
- * @since 2025
- */
-
 @RestController
 @RequestMapping("/autores")
 @AllArgsConstructor
 public class AutorController {
 
-    /**
-     * O serviço de autor que realiza as operações de criação, atualização, listagem e exclusão de autores.
-     * @see AutorService
-     */
     private AutorService service;
 
     /**
-     * Método de POST para criar um autor.
-     * @param autorRequestDTO O {@link EmprestimoRequestDTO} a ser criado
-     * @return Um ResponseEntity contendo o autor criado e o status HTTP 201 (Created) ou o status HTTP 400 (Bad Request).
-     * @see AutorService#criarAutor(AutorRequestDTO), AutorFullResponseDTO
+     * Creates a new author and returns the created author.
+     * @param autorRequestDTO The author to be created.
+     * @return The created author.
      */
 
     @PostMapping
@@ -51,11 +37,10 @@ public class AutorController {
     }
 
     /**
-     * Método de PUT para atualizar um autor.
-     * @param autorPutRequestDTO O {@link AutorPutRequestDTO} contendo os dados atualizados do autor.
-     * @param id O ID do autor a ser atualizado.
-     * @return Um ResponseEntity contendo o autor atualizado e o status HTTP 200 (OK) ou o status HTTP 400 (Bad Request).
-     * @see AutorService#atualizarAutor(AutorPutRequestDTO, Integer), AutorFullResponseDTO
+     * Updates an existing author and returns the updated author.
+     * @param autorPutRequestDTO The updated author.
+     * @param id The ID of the author to be updated.
+     * @return The updated author.
      */
     @PutMapping("/{id}")
     public ResponseEntity<AutorFullResponseDTO> atualizarAutor (@RequestBody @Valid AutorPutRequestDTO autorPutRequestDTO, @PathVariable @Positive Integer id ) {
@@ -68,24 +53,24 @@ public class AutorController {
     }
 
     /**
-     * Método de GET para listar todos os autores.
-     * @return Um ResponseEntity contendo uma lista de autores e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
-     * @see AutorService#listarAutores(), List<AutorFullResponseDTO>
+     * Retrieves a list of all authors.
+     * @return A ResponseEntity containing a list of AutorFullResponseDTO and an HTTP status code.
+     * Returns HttpStatus.OK if the operation is successful, otherwise returns HttpStatus.BAD_REQUEST.
      */
     @GetMapping
     public ResponseEntity<List<AutorFullResponseDTO>> listarAutores () {
         try {
             return new ResponseEntity<>( service.listarAutores(), HttpStatus.OK );
         } catch ( RuntimeException e ) {
-            return new ResponseEntity<>( HttpStatus.NOT_FOUND );
+            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
         }
     }
 
     /**
-     * Método GET para buscar um autor pelo ID.
-     * @param id O ID do autor a ser buscado.
-     * @return Um ResponseEntity contendo o autor e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
-     * @see AutorService#buscarAutor(Integer), AutorFullResponseDTO
+     * Retrieves an author by their ID.
+     * @param id The ID of the author to be retrieved.
+     * @return A ResponseEntity containing the retrieved author and an HTTP status code.
+     * Returns HttpStatus.OK if the operation is successful, otherwise returns HttpStatus.BAD_REQUEST.
      */
     @GetMapping("/{id}")
     public ResponseEntity<AutorFullResponseDTO> buscarAutor ( @PathVariable @Positive Integer id ) {
@@ -93,15 +78,15 @@ public class AutorController {
             AutorFullResponseDTO autorFullResponseDTO = service.buscarAutor( id );
             return new ResponseEntity<>( autorFullResponseDTO, HttpStatus.OK );
         } catch ( RuntimeException e ) {
-            return new ResponseEntity<>( HttpStatus.NOT_FOUND );
+            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
         }
     }
 
     /**
-     * Método DELETE para deletar um autor pelo ID.
-     * @param id O ID do autor a ser deletado.
-     * @return Um ResponseEntity contendo o status HTTP 200 (OK) ou o status HTTP 400 (Bad Request).
-     * @see AutorService#deletarAutor(Integer)
+     * Deletes an author by their ID.
+     * @param id The ID of the author to be deleted.
+     * @return A ResponseEntity containing an HTTP status code.
+     * Returns HttpStatus.OK if the operation is successful, otherwise returns HttpStatus.BAD_REQUEST.
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarAutor ( @PathVariable @Positive Integer id ) {

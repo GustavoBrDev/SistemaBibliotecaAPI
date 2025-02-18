@@ -49,11 +49,12 @@ public class UsuarioController {
     }
 
     /**
-     * Método de PUT para atualizar um usuario
-     * @param usuarioPutRequestDTO A {@link UsuarioPutRequestDTO} contendo os dados do usuario
-     * @param id O ID do usuario a ser atualizado
-     * @return Um ResponseEntity contendo o usuario atualizado e o status HTTP 200 (OK) ou o status HTTP 400 (Bad Request).
-     * @see UsuarioService#atualizarUsuario(UsuarioPutRequestDTO, Integer), UsuarioPutRequestDTO, UsuarioFullResponseDTO
+     * Updates an existing user and returns the updated user.
+     *
+     * @param usuarioPutRequestDTO The updated user data.
+     * @param id The ID of the user to be updated.
+     * @return A ResponseEntity containing the updated user and an HTTP status code.
+     * Returns HttpStatus.OK if the operation is successful, otherwise returns HttpStatus.BAD_REQUEST.
      */
     @PutMapping
     public ResponseEntity<UsuarioFullResponseDTO> atualizarUsuario ( @RequestBody @Valid UsuarioPutRequestDTO usuarioPutRequestDTO, @RequestParam Integer id ) {
@@ -67,9 +68,10 @@ public class UsuarioController {
     }
 
     /**
-     * Metodo GET para listar todos os usuarios existentes
-     * @return Um ResponseEntity contendo a lista de usuarios e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
-     * @see UsuarioService#listarUsuarios(), UsuarioFullResponseDTO
+     * Retrieves a list of all users.
+     *
+     * @return A ResponseEntity containing a list of {@link UsuarioFullResponseDTO} and an HTTP status code.
+     * Returns HttpStatus.OK if the operation is successful, otherwise returns HttpStatus.BAD_REQUEST.
      */
     @GetMapping
     public ResponseEntity<List<UsuarioFullResponseDTO>> listarUsuarios () {
@@ -77,15 +79,16 @@ public class UsuarioController {
         try {
             return new ResponseEntity<>( service.listarUsuarios(), HttpStatus.OK );
         } catch ( RuntimeException e ) {
-            return new ResponseEntity<>( HttpStatus.NOT_FOUND );
+            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
         }
     }
 
     /**
-     * Metodo GET para buscar um usuario existente
-     * @param id O ID do usuario a ser buscado
-     * @return Um ResponseEntity contendo o usuario buscado e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
-     * @see UsuarioService#buscarUsuario(Integer), UsuarioFullResponseDTO
+     * Retrieves a user by their ID.
+     *
+     * @param id The ID of the user to be retrieved.
+     * @return A ResponseEntity containing the retrieved user and an HTTP status code.
+     * Returns HttpStatus.OK if the operation is successful, otherwise returns HttpStatus.BAD_REQUEST.
      */
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioFullResponseDTO> buscarUsuario ( @PathVariable @Positive Integer id ) {
@@ -94,15 +97,15 @@ public class UsuarioController {
             UsuarioFullResponseDTO usuarioFullResponseDTO = service.buscarUsuario( id );
             return new ResponseEntity<>( usuarioFullResponseDTO, HttpStatus.OK );
         } catch ( RuntimeException e ) {
-            return new ResponseEntity<>( HttpStatus.NOT_FOUND );
+            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
         }
     }
 
     /**
-     * Metodo DELETE para deletar um usuario
-     * @param id O ID do usuario a ser deletado
-     * @return Um ResponseEntity contendo o status HTTP 200 (OK) ou o status HTTP 400 (Bad Request).
-     * @see UsuarioService#deletarUsuario(Integer)
+     * Deletes a user by their ID.
+     * @param id The ID of the user to be deleted.
+     * @return A ResponseEntity containing an HTTP status code.
+     * Returns HttpStatus.OK if the operation is successful, otherwise returns HttpStatus.BAD_REQUEST.
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarUsuario ( @PathVariable @Positive Integer id ) {
