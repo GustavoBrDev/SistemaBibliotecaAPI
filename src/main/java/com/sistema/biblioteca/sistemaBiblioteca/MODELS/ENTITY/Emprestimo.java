@@ -6,6 +6,12 @@ import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.EMPRESTIMO.E
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * Classe que representa um emprestimo
+ * @author Gustavo Stinghen
+ * @version 1.0
+ * @since 2025
+ */
 @Entity
 @Data
 @NoArgsConstructor
