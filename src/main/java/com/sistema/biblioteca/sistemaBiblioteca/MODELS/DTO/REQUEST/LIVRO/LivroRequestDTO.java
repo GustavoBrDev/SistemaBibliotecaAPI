@@ -5,6 +5,13 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.NonNull;
 
+/**
+ * Record de DTO para o recurso de livros.
+ * Utilizado para criação de livros.
+ * @author Gustavo Stinghen
+ * @version 1.0
+ * @since 2025
+ */
 public record LivroRequestDTO(
         @NotBlank String nome,
         @NotBlank String dataLancamento,

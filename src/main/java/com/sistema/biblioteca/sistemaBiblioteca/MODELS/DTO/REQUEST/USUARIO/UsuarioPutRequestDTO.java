@@ -5,6 +5,13 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+/**
+ * Record de DTO para o recurso de usuarios.
+ * Utilizado para atualização de usuarios.
+ * @author Gustavo Stinghen
+ * @version 1.0
+ * @since 2025
+ */
 public record UsuarioPutRequestDTO(@NotNull @Positive Integer id, @NotBlank String nome, @NotBlank String email, @NotBlank String senha ) {
 
     public Usuario converter() {

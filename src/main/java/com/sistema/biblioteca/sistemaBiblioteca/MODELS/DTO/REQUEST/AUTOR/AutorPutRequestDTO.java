@@ -6,7 +6,13 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
-@Data
+/**
+ * Record de DTO para o recurso de autores.
+ * Utilizado para atualização de autores.
+ * @author Gustavo Stinghen
+ * @version 1.0
+ * @since 2025
+ */
 public record AutorPutRequestDTO(
 
     @NotNull

@@ -3,9 +3,18 @@ package com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.EMPRESTIMO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.LIVRO.LivroRequestDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.USUARIO.UsuarioRequestDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY.Emprestimo;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
-
-public record EmprestimoRequestDTO(String dataInicio, String dataDevolucao, Float valorMulta, Boolean devolvido, LivroRequestDTO livro, UsuarioRequestDTO usuario) {
+/**
+ * Record de DTO para o recurso de emprestimos.
+ * Utilizado para criar um novo emprestimo.
+ * @author Gustavo Stinghen
+ * @version 1.0
+ * @since 2025
+ */
+public record EmprestimoRequestDTO(@NotBlank String dataInicio, @NotBlank String dataDevolucao, @Positive Float valorMulta, @NotNull Boolean devolvido, @NotNull LivroRequestDTO livro, @NotNull UsuarioRequestDTO usuario) {
 
     public Emprestimo converter() {
         return Emprestimo.builder().

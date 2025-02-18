@@ -7,13 +7,6 @@ import jakarta.validation.constraints.Positive;
 import lombok.Builder;
 import lombok.Data;
 
-/**
- * Record de DTO para o recurso de livros.
- * Utilizado para atualização de livros.
- * @author Gustavo Stinghen
- * @version 1.0
- * @since 2025
- */
 @Builder
 @Data
 public class LivroPutRequestDto {
