@@ -6,13 +6,19 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+/**
+ * Repository para o recurso de livros.
+ * @see Livro
+ * @author Gustavo Stinghen
+ * @version 1.0
+ * @since 2025
+ */
 public interface LivroRepository extends JpaRepository <Livro, Integer> {
 
     /**
-     * Retrieves a list of books that have been borrowed if the given emprestado value is true, or a list of books that have not been borrowed if the given emprestado value is false.
-     *
-     * @param emprestado true if the book has been borrowed, false if the book has not been borrowed
-     * @return a list of books
+     * Método que busca livros por status de emprestimo.
+     * @param emprestado booleano indicando se o livro foi emprestado
+     * @return lista de livros
      */
     public List<Livro> findByEmprestado ( boolean emprestado );
 

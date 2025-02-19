@@ -10,18 +10,28 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+/**
+ * Classe de serviço para o recurso de autores
+ * @author Gustavo Stinghen
+ * @version 1.0
+ * @since 2025
+ * @see AutorRepository
+ */
 @AllArgsConstructor
 @Service
 public class AutorService {
 
+    /**
+     * Repository do recurso de autores
+     */
     private AutorRepository repository;
 
     /**
-     * Creates a new author and returns the created author with full details.
-     *
-     * @param autorRequestDTO The author details to be created.
-     * @return The created author's full response DTO.
-     * @throws RuntimeException if an author with the same name already exists.
+     * Metodo para criar um autor
+     * @param autorRequestDTO O {@link AutorRequestDTO} contendo os dados do autor
+     * @return O autor criado em forma de {@link AutorFullResponseDTO}
+     * @see Autor, AutorFullResponseDTO, AutorRequestDTO
      */
     public AutorFullResponseDTO criarAutor (AutorRequestDTO autorRequestDTO ) {
 
@@ -35,12 +45,11 @@ public class AutorService {
     }
 
     /**
-     * Updates an existing author and returns the updated author with full details.
-     *
-     * @param autorRequestDTO The updated author details.
-     * @param id              The ID of the author to be updated.
-     * @return The updated author's full response DTO.
-     * @throws RuntimeException if the author with the given ID does not exist.
+     * Método para atualizar um autor
+     * @param autorRequestDTO O {@link AutorPutRequestDTO} contendo os dados atualizados do autor
+     * @param id O ID do autor a ser atualizado
+     * @return O autor atualizado em forma de {@link AutorFullResponseDTO}
+     * @see Autor, AutorFullResponseDTO, AutorPutRequestDTO
      */
     public AutorFullResponseDTO atualizarAutor (AutorPutRequestDTO autorRequestDTO, Integer id) {
 
@@ -54,11 +63,10 @@ public class AutorService {
     }
 
     /**
-     * Retrieves an author by their ID and returns the author's full details.
-     *
-     * @param id The ID of the author to be retrieved.
-     * @return The author's full response DTO.
-     * @throws RuntimeException if the author with the given ID does not exist.
+     * Método para buscar um autor
+     * @param id O ID do autor a ser buscado
+     * @return O autor buscado em forma de {@link AutorFullResponseDTO}
+     * @see Autor, AutorFullResponseDTO
      */
     public AutorFullResponseDTO buscarAutor ( Integer id ) {
 
@@ -71,19 +79,18 @@ public class AutorService {
     }
 
     /**
-     * Retrieves a list of all authors.
-     *
-     * @return A list of full response DTOs of all authors.
+     * Método para listar todos os autores
+     * @return Uma lista de todos os autores em forma de {@link AutorFullResponseDTO}
+     * @see Autor, AutorFullResponseDTO
      */
     public List<AutorFullResponseDTO> listarAutores () {
         return repository.findAll().stream().map(Autor::converterTudo).toList();
     }
 
     /**
-     * Deletes an author by their ID.
-     *
-     * @param id The ID of the author to be deleted.
-     * @throws RuntimeException if the author with the given ID does not exist.
+     * Método para deletar um autor
+     * @param id O ID do autor a ser deletado
+     * @see Autor
      */
     public void deletarAutor ( Integer id ) {
 

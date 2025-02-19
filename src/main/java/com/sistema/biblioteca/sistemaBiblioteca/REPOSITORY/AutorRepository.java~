@@ -6,9 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * Repository para o recurso de autores.
  * @see Autor
- * @author Gustavo Stinghen
- * @version 1.0
- * @since 2025
  */
 public interface AutorRepository extends JpaRepository <Autor, Integer > {
 

@@ -10,40 +10,48 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Classe de serviço para o recurso de generos.
+ * @see GeneroRepository, Genero
+ * @author Gustavo Stinghen
+ * @version 1.0
+ * @since 2025
+ */
 @Service
 @AllArgsConstructor
-        public class GeneroService {
+public class GeneroService {
 
-        private GeneroRepository repository;
+    /**
+     * Repositório de generos
+     * @see GeneroRepository
+     */
+    private GeneroRepository repository;
 
-        /**
-        * Creates a new genre in the repository.
-        *
-        * @param generoRequestDTO The data transfer object containing the genre details.
-        * @return The newly created genre's full response data transfer object.
-        * @throws RuntimeException if a genre with the same name already exists.
-        */
-        public GeneroFullResponseDTO criarGenero (GeneroRequestDTO generoRequestDTO) {
+    /**
+     * Método para criar um novo genero
+     * @param generoRequestDTO A {@link GeneroRequestDTO} contendo os dados do genero
+     * @return Um {@link GeneroFullResponseDTO} contendo o genero criado
+     * @see GeneroFullResponseDTO, GeneroRequestDTO
+     */
+    public GeneroFullResponseDTO criarGenero (GeneroRequestDTO generoRequestDTO) {
 
-            Genero genero = generoRequestDTO.converter();
+        Genero genero = generoRequestDTO.converter();
 
-            if ( repository.existsByNome(genero.getNome()) ) {
-                throw new RuntimeException("Genero já cadastrado");
-            }
-
-            return repository.save( genero ).converterTudo();
+        if ( repository.existsByNome(genero.getNome()) ) {
+            throw new RuntimeException("Genero já cadastrado");
         }
 
+        return repository.save( genero ).converterTudo();
+    }
 
-        /**
-         * Updates an existing genre in the repository.
-         *
-         * @param id The unique identifier of the genre to be updated.
-         * @param generoPutRequestDTO The data transfer object containing the updated genre details.
-         * @return The updated genre's full response data transfer object.
-         * @throws RuntimeException if a genre with the given ID does not exist.
-         */
-        public GeneroFullResponseDTO atualizarGenero (Integer id, GeneroPutRequestDTO generoPutRequestDTO) {
+    /**
+     * Método para atualizar um genero
+     * @param id id do genero
+     * @param generoPutRequestDTO A {@link GeneroPutRequestDTO} contendo os dados do genero
+     * @return Um {@link GeneroFullResponseDTO} contendo o genero atualizado
+     * @see GeneroFullResponseDTO, GeneroPutRequestDTO
+     */
+    public GeneroFullResponseDTO atualizarGenero (Integer id, GeneroPutRequestDTO generoPutRequestDTO) {
 
         if ( repository.existsById(id) ) {
             Genero genero = generoPutRequestDTO.converter();
@@ -55,11 +63,10 @@ import java.util.List;
     }
 
     /**
-     * Retrieves a genre by its unique identifier from the repository.
-     *
-     * @param id The unique identifier of the genre to retrieve.
-     * @return The full response data transfer object of the found genre.
-     * @throws RuntimeException if a genre with the given ID does not exist.
+     * Método para buscar um genero
+     * @param id id do genero
+     * @return Um {@link GeneroFullResponseDTO} contendo o genero buscado
+     * @see GeneroFullResponseDTO
      */
     public GeneroFullResponseDTO buscarGenero ( Integer id ) {
 
@@ -71,10 +78,9 @@ import java.util.List;
     }
 
     /**
-     * Retrieves a list of all genres from the repository.
-     *
-     * @return A list of GeneroFullResponseDTO objects representing all genres.
-     * @throws RuntimeException if there is an error retrieving the genres.
+     * Método para listar todos os generos
+     * @return Uma lista de {@link GeneroFullResponseDTO} contendo todos os generos
+     * @see GeneroFullResponseDTO
      */
     public List<GeneroFullResponseDTO> listarGeneros () {
 
@@ -86,10 +92,8 @@ import java.util.List;
     }
 
     /**
-     * Deletes a genre by its unique identifier from the repository.
-     *
-     * @param id The unique identifier of the genre to delete.
-     * @throws RuntimeException if a genre with the given ID does not exist.
+     * Método para deletar um genero
+     * @param id id do genero
      */
     public void deletarGenero ( Integer id ) {
 

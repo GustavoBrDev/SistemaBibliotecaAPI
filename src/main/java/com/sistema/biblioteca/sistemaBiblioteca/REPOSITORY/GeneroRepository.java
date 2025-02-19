@@ -3,6 +3,13 @@ package com.sistema.biblioteca.sistemaBiblioteca.REPOSITORY;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY.Genero;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+/**
+ * Repository para o recurso de generos.
+ * @see Genero
+ * @author Gustavo Stinghen
+ * @version 1.0
+ * @since 2025
+ */
 public interface GeneroRepository extends JpaRepository<Genero, Integer > {
 
     /**

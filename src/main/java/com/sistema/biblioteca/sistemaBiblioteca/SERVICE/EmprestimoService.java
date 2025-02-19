@@ -10,18 +10,34 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Classe de serviço para o recurso de emprestimos.
+ * @see EmprestimoRepository, Emprestimo, LivroService
+ * @author Gustavo Stinghen
+ * @version 1.0
+ * @since 2025
+ */
 @Service
 @AllArgsConstructor
 public class EmprestimoService {
 
+    /**
+     * Repository para o recurso de emprestimos.
+     * @see EmprestimoRepository
+     */
     private EmprestimoRepository repository;
+
+    /**
+     * Serviço de livros que permite criar, atualizar, buscar, listar e deletar livros
+     * @see LivroService
+     */
     private LivroService livroService;
 
     /**
-     * Creates a new loan for a given user and book.
-     *
-     * @param emprestimoRequestDTO The {@link EmprestimoRequestDTO} containing the user and book IDs.
-     * @return A {@link EmprestimoFullResponseDTO} containing the created loan data.
+     * Método para criar um novo emprestimo
+     * @param emprestimoRequestDTO A {@link EmprestimoRequestDTO} contendo os dados do emprestimo
+     * @return O emprestimo criado em forma de {@link EmprestimoFullResponseDTO}
+     * @see EmprestimoRequestDTO, EmprestimoFullResponseDTO
      */
     public EmprestimoFullResponseDTO criarEmprestimo ( EmprestimoRequestDTO emprestimoRequestDTO ) {
 
@@ -37,12 +53,11 @@ public class EmprestimoService {
     }
 
     /**
-     * Updates an existing loan with the provided data.
-     *
-     * @param emprestimoPutRequestDTO The {@link EmprestimoPutRequestDTO} containing the updated loan data.
-     * @param id The ID of the loan to be updated.
-     * @return A {@link EmprestimoFullResponseDTO} containing the updated loan data.
-     * @throws RuntimeException If the loan is not found.
+     * Método para atualizar um emprestimo
+     * @param emprestimoPutRequestDTO A {@link EmprestimoPutRequestDTO} contendo os dados do emprestimo
+     * @param id O ID do emprestimo a ser atualizado
+     * @return O emprestimo atualizado em forma de {@link EmprestimoFullResponseDTO}
+     * @see EmprestimoPutRequestDTO, EmprestimoFullResponseDTO
      */
     public EmprestimoFullResponseDTO atualizarEmprestimo (EmprestimoPutRequestDTO emprestimoPutRequestDTO, Integer id ) {
 
@@ -63,11 +78,10 @@ public class EmprestimoService {
     }
 
     /**
-     * Returns the loan with the given ID.
-     *
-     * @param id The ID of the loan to be returned.
-     * @return A {@link EmprestimoFullResponseDTO} containing the loan data.
-     * @throws RuntimeException If the loan is not found.
+     * Método para buscar um emprestimo
+     * @param id O ID do emprestimo a ser buscado
+     * @return O emprestimo buscado em forma de {@link EmprestimoFullResponseDTO}
+     * @see EmprestimoFullResponseDTO
      */
     public EmprestimoFullResponseDTO buscarEmprestimo ( Integer id ) {
         try {
@@ -78,10 +92,9 @@ public class EmprestimoService {
     }
 
     /**
-     * Returns a list of all existing loans.
-     *
-     * @return A list of {@link EmprestimoFullResponseDTO} objects containing the loan data.
-     * @throws RuntimeException If there are no loans.
+     * Método para listar todos os emprestimos
+     * @return A lista de emprestimos em forma de {@link EmprestimoFullResponseDTO}
+     * @see EmprestimoFullResponseDTO
      */
     public List<EmprestimoFullResponseDTO> listarEmprestimos () {
         try {
@@ -92,11 +105,10 @@ public class EmprestimoService {
     }
 
     /**
-     * Marks the loan with the given ID as returned.
-     *
-     * @param id The ID of the loan to be marked as returned.
-     * @return A {@link EmprestimoFullResponseDTO} containing the updated loan data.
-     * @throws RuntimeException If the loan is not found.
+     * Método para devolver um emprestimo
+     * @param id O ID do emprestimo a ser devolvido
+     * @return O emprestimo devolvido em forma de {@link EmprestimoFullResponseDTO}
+     * @see EmprestimoFullResponseDTO, LivroService
      */
     public EmprestimoFullResponseDTO terminarEmprestimo ( Integer id ) {
         try {
@@ -111,10 +123,8 @@ public class EmprestimoService {
     }
 
     /**
-     * Deletes the loan with the given ID.
-     *
-     * @param id The ID of the loan to be deleted.
-     * @throws RuntimeException If the loan is not found.
+     * Método para deletar um emprestimo
+     * @param id O ID do emprestimo a ser deletado
      */
     public void deletarEmprestimo ( Integer id ) {
         try {
