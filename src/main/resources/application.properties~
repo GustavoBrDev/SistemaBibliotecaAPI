@@ -4,7 +4,3 @@ spring.datasource.username = root
 spring.datasource.password =
 spring.jpa.hibernate.ddl-auto = update
 server.port = 9090
-springdoc.api-docs.enabled=true
-springdoc.swagger-ui.title=Bibliotexas API
-springdoc.swagger-ui.description=API documentation for Bibliotecas project
-springdoc.swagger-ui.path=/swagger-ui.html

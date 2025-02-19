@@ -5,6 +5,14 @@ import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.AUTOR.AutorRe
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.REQUEST.EMPRESTIMO.EmprestimoRequestDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.AUTOR.AutorFullResponseDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.SERVICE.AutorService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -40,8 +48,17 @@ public class AutorController {
      * @see AutorService#criarAutor(AutorRequestDTO), AutorFullResponseDTO
      */
 
+    @Tag( name = "Autor", description = "Recurso para gerenciamento de autores" )
+    @Operation ( summary = "Cria um autor", description = "Cria um autor e retorna o autor criado com o status HTTP 201" )
+    @ApiResponse ( responseCode = "201", description = "Autor criado com sucesso",
+            content = @Content ( schema = @Schema ( implementation = AutorFullResponseDTO.class ),
+            examples = @ExampleObject ( value = "{ \"id\": 1, \"nome\": \"Gustavo Stinghen\", \"dataNascimento\": \"2000-01-01\", \"biografia\": \"Biografia do autor\" }" )) )
+    @ApiResponse ( responseCode = "400", description = "Erro ao criar autor" )
+    @ApiResponse ( responseCode = "500", description = "Erro interno do servidor" )
+    @SecurityRequirement( name = "Bearer" )
     @PostMapping
-    public ResponseEntity<AutorFullResponseDTO> criarAutor ( @RequestBody @Valid AutorRequestDTO autorRequestDTO ) {
+    public ResponseEntity<AutorFullResponseDTO> criarAutor ( @RequestBody
+        @Parameter ( description = "Autor a ser criado", content = @Content ( schema = @Schema ( implementation = AutorRequestDTO.class ) ), required = true, example = "{ \"nome\": \"Gustavo Stinghen\", \"dataNascimento\": \"2000-01-01\", \"biografia\": \"Biografia do autor\" }" ) @Valid AutorRequestDTO autorRequestDTO ) {
         try {
             AutorFullResponseDTO autorFullResponseDTO = service.criarAutor( autorRequestDTO );
             return new ResponseEntity<>( autorFullResponseDTO, HttpStatus.CREATED );
@@ -57,8 +74,18 @@ public class AutorController {
      * @return Um ResponseEntity contendo o autor atualizado e o status HTTP 200 (OK) ou o status HTTP 400 (Bad Request).
      * @see AutorService#atualizarAutor(AutorPutRequestDTO, Integer), AutorFullResponseDTO
      */
+    @Tag( name = "Autor", description = "Recurso para gerenciamento de autores" )
+    @Operation ( summary = "Atualiza um autor", description = "Atualiza um autor e retorna o autor atualizado com o status HTTP 200" )
+    @ApiResponse ( responseCode = "200", description = "Autor atualizado com sucesso",
+            content = @Content ( schema = @Schema ( implementation = AutorFullResponseDTO.class ),
+            examples = @ExampleObject ( value = "{ \"id\": 1, \"nome\": \"Gustavo Stinghen\", \"dataNascimento\": \"2000-01-01\", \"biografia\": \"Biografia do autor\" }" )) )
+    @ApiResponse ( responseCode = "400", description = "Erro ao atualizar autor" )
+    @ApiResponse ( responseCode = "500", description = "Erro interno do servidor" )
+    @SecurityRequirement( name = "Bearer" )
     @PutMapping("/{id}")
-    public ResponseEntity<AutorFullResponseDTO> atualizarAutor (@RequestBody @Valid AutorPutRequestDTO autorPutRequestDTO, @PathVariable @Positive Integer id ) {
+    public ResponseEntity<AutorFullResponseDTO> atualizarAutor (@RequestBody
+        @Parameter ( description = "Autor a ser atualizado", content = @Content ( schema = @Schema ( implementation = AutorPutRequestDTO.class ) ), required = true, example = "{ \"id\": 1, \"nome\": \"Gustavo Stinghen\", \"dataNascimento\": \"2000-01-01\", \"biografia\": \"Biografia do autor\" }" )@Valid AutorPutRequestDTO autorPutRequestDTO,
+        @PathVariable @Parameter ( description = "ID do autor a ser atualizado", example = "1", required = true )@Positive Integer id ) {
         try {
             AutorFullResponseDTO autorFullResponseDTO = service.atualizarAutor(autorPutRequestDTO, id );
             return new ResponseEntity<>( autorFullResponseDTO, HttpStatus.OK );
@@ -72,6 +99,14 @@ public class AutorController {
      * @return Um ResponseEntity contendo uma lista de autores e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
      * @see AutorService#listarAutores(), List<AutorFullResponseDTO>
      */
+    @Tag( name = "Autor", description = "Recurso para gerenciamento de autores")
+    @Operation ( summary = "Lista todos os autores", description = "Lista todos os autores e retorna uma lista de autores com o status HTTP 200" )
+    @ApiResponse ( responseCode = "200", description = "Autores listados com sucesso",
+            content = @Content ( schema = @Schema ( implementation = AutorFullResponseDTO.class ),
+            examples = @ExampleObject ( value = "{ \"id\": 1, \"nome\": \"Gustavo Stinghen\", \"dataNascimento\": \"2000-01-01\", \"biografia\": \"Biografia do autor\" }" )) )
+    @ApiResponse ( responseCode = "404", description = "Nenhum autor encontrado" )
+    @ApiResponse ( responseCode = "500", description = "Erro interno do servidor" )
+    @SecurityRequirement( name = "Bearer" )
     @GetMapping
     public ResponseEntity<List<AutorFullResponseDTO>> listarAutores () {
         try {
@@ -87,8 +122,16 @@ public class AutorController {
      * @return Um ResponseEntity contendo o autor e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
      * @see AutorService#buscarAutor(Integer), AutorFullResponseDTO
      */
+    @Tag( name = "Autor", description = "Recurso para gerenciamento de autores" )
+    @Operation ( summary = "Busca um autor pelo ID", description = "Busca um autor pelo ID e retorna o autor com o status HTTP 200" )
+    @ApiResponse ( responseCode = "200", description = "Autor encontrado com sucesso",
+            content = @Content ( schema = @Schema ( implementation = AutorFullResponseDTO.class ),
+            examples = @ExampleObject ( value = "{ \"id\": 1, \"nome\": \"Gustavo Stinghen\", \"dataNascimento\": \"2000-01-01\", \"biografia\": \"Biografia do autor\" }" )) )
+    @ApiResponse ( responseCode = "404", description = "Autor não encontrado" )
+    @ApiResponse ( responseCode = "500", description = "Erro interno do servidor" )
+    @SecurityRequirement( name = "Bearer" )
     @GetMapping("/{id}")
-    public ResponseEntity<AutorFullResponseDTO> buscarAutor ( @PathVariable @Positive Integer id ) {
+    public ResponseEntity<AutorFullResponseDTO> buscarAutor ( @PathVariable @Parameter ( description = "ID do autor a ser buscado", example = "1", required = true )@Positive Integer id ) {
         try {
             AutorFullResponseDTO autorFullResponseDTO = service.buscarAutor( id );
             return new ResponseEntity<>( autorFullResponseDTO, HttpStatus.OK );
@@ -103,8 +146,14 @@ public class AutorController {
      * @return Um ResponseEntity contendo o status HTTP 200 (OK) ou o status HTTP 400 (Bad Request).
      * @see AutorService#deletarAutor(Integer)
      */
+    @Tag( name = "Autor", description = "Recurso para gerenciamento de autores" )
+    @Operation ( summary = "Deleta um autor pelo ID", description = "Deleta um autor pelo ID e retorna o status HTTP 200" )
+    @ApiResponse ( responseCode = "200", description = "Autor deletado com sucesso" )
+    @ApiResponse ( responseCode = "400", description = "Erro ao deletar autor" )
+    @ApiResponse ( responseCode = "500", description = "Erro interno do servidor" )
+    @SecurityRequirement( name = "Bearer" )
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarAutor ( @PathVariable @Positive Integer id ) {
+    public ResponseEntity<Void> deletarAutor ( @PathVariable @Parameter ( description = "ID do autor a ser deletado", example = "1", required = true )@Positive Integer id ) {
         try {
             service.deletarAutor( id );
             return new ResponseEntity<>( HttpStatus.OK );

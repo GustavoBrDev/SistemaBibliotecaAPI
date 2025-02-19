@@ -170,14 +170,8 @@ public class EmprestimoController {
      * @return Um ResponseEntity contendo o status HTTP 200 (OK) ou o status HTTP 400 (Bad Request).
      * @see EmprestimoService#deletarEmprestimo(Integer)
      */
-    @Tag( name = "Emprestimo", description = "Recurso para gerenciamento de emprestimos" )
-    @Operation( summary = "Deleta um emprestimo", description = "Deleta um emprestimo e retorna o status HTTP 200" )
-    @ApiResponse( responseCode = "200", description = "Emprestimo deletado com sucesso" )
-    @ApiResponse( responseCode = "400", description = "Erro ao deletar emprestimo" )
-    @ApiResponse( responseCode = "500", description = "Erro interno do servidor" )
-    @SecurityRequirement( name = "Bearer" )
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarEmprestimo ( @PathVariable @Positive @Parameter ( required = true, example = "1" ) Integer id ) {
+    public ResponseEntity<Void> deletarEmprestimo ( @PathVariable @Positive Integer id ) {
 
         try {
             service.deletarEmprestimo( id );
