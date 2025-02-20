@@ -1,5 +1,6 @@
 package com.sistema.biblioteca.sistemaBiblioteca.MODELS.ENTITY;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.AUTOR.AutorResponseDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.GENERO.GeneroResponseDTO;
 import com.sistema.biblioteca.sistemaBiblioteca.MODELS.DTO.RESPONSE.LIVRO.LivroAutorResponseDTO;
@@ -52,10 +53,11 @@ public class Livro {
     private Boolean emprestado = false;
 
     @ManyToMany
-    @JoinColumn ( nullable = false )
     private List<Autor> autores;
 
     @ManyToMany
+    @ToString.Exclude
+    @JsonIgnore
     private List<Genero> generos;
 
     public LivroFullResponseDTO converterTudo ( ){

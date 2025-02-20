@@ -146,8 +146,7 @@ public class GeneroController {
     @ApiResponse( responseCode = "500", description = "Erro interno do servidor" )
     @SecurityRequirement( name = "Bearer" )
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarGenero ( @PathVariable
-    @Parameter( description = "ID do genero a ser deletado", required = true, example = "1" ) @Positive Integer id ) {
+    public ResponseEntity<Void> deletarGenero ( @PathVariable @Positive Integer id ) {
         try {
             service.deletarGenero( id );
             return new ResponseEntity<>( HttpStatus.OK );

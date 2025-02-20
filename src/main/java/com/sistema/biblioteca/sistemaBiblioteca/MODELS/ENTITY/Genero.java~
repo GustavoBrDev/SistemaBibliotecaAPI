@@ -33,7 +33,7 @@ public class Genero {
 
     private String descricao;
 
-    @ManyToMany (mappedBy = "generos")
+    @ManyToMany (mappedBy = "categorias")
     @JsonIgnore
     @ToString.Exclude
     private List<Livro> livros;

@@ -55,6 +55,7 @@ public class Usuario {
                 .id(this.id)
                 .nome(this.nome)
                 .email(this.email)
+                .senha(this.senha)
                 .build();
     }
 

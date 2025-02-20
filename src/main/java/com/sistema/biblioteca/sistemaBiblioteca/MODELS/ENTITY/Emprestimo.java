@@ -43,8 +43,6 @@ public class Emprestimo {
     private Livro livro;
 
     @ManyToOne
-    @NonNull
-    @JoinColumn ( nullable = false )
     @ToString.Exclude
     @JsonIgnore
     private Usuario usuario;

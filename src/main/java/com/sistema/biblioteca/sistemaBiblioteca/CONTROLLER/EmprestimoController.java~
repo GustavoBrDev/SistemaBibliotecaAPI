@@ -44,7 +44,7 @@ public class EmprestimoController {
      * Método POST para criar um novo emprestimo
      * @param emprestimoRequestDTO A {@link EmprestimoRequestDTO} contendo os dados do emprestimo
      * @return Um ResponseEntity contendo o empréstimo criado e o status HTTP 201 (Created) ou o status HTTP 400 (Bad Request).
-     * @see EmprestimoService#criarEmprestimo(EmprestimoRequestDTO), EmprestimoRequestDTO
+     * @see EmprestimoService, EmprestimoRequestDTO
      */
     @Tag( name = "Emprestimo", description = "Recurso para gerenciamento de emprestimos" )
     @Operation( summary = "Cria um novo emprestimo", description = "Cria um novo emprestimo e retorna o emprestimo criado com o status HTTP 201" )
@@ -69,7 +69,7 @@ public class EmprestimoController {
      * @param emprestimoPutRequestDTO A {@link EmprestimoPutRequestDTO} contendo os dados do emprestimo
      * @param id O ID do emprestimo a ser atualizado
      * @return Um ResponseEntity contendo o empréstimo atualizado e o status HTTP 200 (OK) ou o status HTTP 400 (Bad Request).
-     * @see EmprestimoService#atualizarEmprestimo(EmprestimoPutRequestDTO, Integer), EmprestimoPutRequestDTO, EmprestimoFullResponseDTO
+     * @see EmprestimoService, EmprestimoPutRequestDTO, EmprestimoFullResponseDTO
      */
     @Tag( name = "Emprestimo", description = "Recurso para gerenciamento de emprestimos" )
     @Operation( summary = "Atualiza um emprestimo", description = "Atualiza um emprestimo e retorna o emprestimo atualizado com o status HTTP 200" )
@@ -94,7 +94,7 @@ public class EmprestimoController {
      * Método GET para buscar um emprestimo existente
      * @param id O ID do emprestimo a ser buscado
      * @return Um ResponseEntity contendo o empréstimo buscado e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
-     * @see EmprestimoService#buscarEmprestimo(Integer), EmprestimoFullResponseDTO
+     * @see EmprestimoService, EmprestimoFullResponseDTO
      */
     @Tag( name = "Emprestimo", description = "Recurso para gerenciamento de emprestimos" )
     @Operation( summary = "Busca um emprestimo pelo ID", description = "Busca um emprestimo pelo ID e retorna o emprestimo com o status HTTP 200" )
@@ -118,7 +118,7 @@ public class EmprestimoController {
     /**
      * Método GET para listar todos os emprestimos
      * @return Um ResponseEntity contendo a lista de emprestimos e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
-     * @see EmprestimoService#listarEmprestimos(), EmprestimoFullResponseDTO
+     * @see EmprestimoService, EmprestimoFullResponseDTO
      */
     @Tag( name = "Emprestimo", description = "Recurso para gerenciamento de emprestimos" )
     @Operation( summary = "Lista todos os emprestimos", description = "Lista todos os emprestimos e retorna uma lista de emprestimos com o status HTTP 200" )
@@ -142,7 +142,7 @@ public class EmprestimoController {
      * Método PATCH para devolver um emprestimo
      * @param id O ID do emprestimo a ser devolvido
      * @return Um ResponseEntity contendo o emprestimo devolvido e o status HTTP 200 (OK) ou o status HTTP 400 (Bad Request).
-     * @see EmprestimoService#terminarEmprestimo(Integer), EmprestimoFullResponseDTO
+     * @see EmprestimoService, EmprestimoFullResponseDTO
      */
     @Tag( name = "Emprestimo", description = "Recurso para gerenciamento de emprestimos" )
     @Operation( summary = "Devolve um emprestimo", description = "Devolve um emprestimo e retorna o emprestimo devolvido com o status HTTP 200" )
@@ -168,10 +168,16 @@ public class EmprestimoController {
      * Método DELETE para deletar um emprestimo
      * @param id O ID do emprestimo a ser deletado
      * @return Um ResponseEntity contendo o status HTTP 200 (OK) ou o status HTTP 400 (Bad Request).
-     * @see EmprestimoService#deletarEmprestimo(Integer)
+     * @see EmprestimoService
      */
+    @Tag( name = "Emprestimo", description = "Recurso para gerenciamento de emprestimos" )
+    @Operation( summary = "Deleta um emprestimo", description = "Deleta um emprestimo e retorna o status HTTP 200" )
+    @ApiResponse( responseCode = "200", description = "Emprestimo deletado com sucesso" )
+    @ApiResponse( responseCode = "400", description = "Erro ao deletar emprestimo" )
+    @ApiResponse( responseCode = "500", description = "Erro interno do servidor" )
+    @SecurityRequirement( name = "Bearer" )
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarEmprestimo ( @PathVariable @Positive Integer id ) {
+    public ResponseEntity<Void> deletarEmprestimo ( @PathVariable @Positive @Parameter ( required = true, example = "1" ) Integer id ) {
 
         try {
             service.deletarEmprestimo( id );

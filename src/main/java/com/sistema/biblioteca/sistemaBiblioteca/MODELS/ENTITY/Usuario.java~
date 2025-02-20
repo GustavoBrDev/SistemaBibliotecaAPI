@@ -9,6 +9,12 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe que representa um usuario
+ * @author Gustavo Stinghen
+ * @version 1.0
+ * @since 2025
+ */
 @Entity
 @Data
 @NoArgsConstructor

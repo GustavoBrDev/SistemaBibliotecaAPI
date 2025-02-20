@@ -198,7 +198,7 @@ public class LivroController {
     @ApiResponse( responseCode = "404", description = "Nenhum livro disponivel ou emprestado encontrado" )
     @ApiResponse( responseCode = "500", description = "Erro interno do servidor" )
     @SecurityRequirement( name = "Bearer" )
-    @GetMapping
+    @GetMapping("/disponibilidade")
     public ResponseEntity<List<LivroFullResponseDTO>> listarLivrosPorDispobinilidade ( @RequestParam @Parameter ( example = "true", required = true, description = "Disponibilidade do livro" ) Boolean disponibilidade ) {
 
         try {
