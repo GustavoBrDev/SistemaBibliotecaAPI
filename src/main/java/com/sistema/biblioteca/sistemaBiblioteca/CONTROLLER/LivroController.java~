@@ -54,7 +54,7 @@ public class LivroController {
     @ApiResponse( responseCode = "500", description = "Erro interno do servidor" )
     @SecurityRequirement( name = "Bearer" )
     @PostMapping
-    public ResponseEntity<LivroFullResponseDTO> criarLivro (
+public ResponseEntity<LivroFullResponseDTO> criarLivro (
         @RequestBody @Parameter ( description = "Dados do livro", required = true, example = "{ \"nome\": \"O Senhor dos Aneis\", \"dataLancamento\": \"1954\", \"emprestado\": false, \"genero\": \"1\", \"sinopse\": \"Livro de fantasia\", \"isbn\": \"123456789\", \"quantidadePaginas\": \"1000\" }", content = @Content( schema = @Schema( implementation = LivroRequestDTO.class ) ) ) @Valid LivroRequestDTO livroRequestDTO ) {
         try {
             LivroFullResponseDTO livroFullResponseDTO = service.criarLivro( livroRequestDTO );
@@ -75,15 +75,14 @@ public class LivroController {
     @Operation( summary = "Atualizar um livro", description = "Endpoint para atualizar um livro" )
     @ApiResponse ( responseCode = "200", description = "Livro atualizado com sucesso",
             content = @Content( schema = @Schema( implementation = LivroFullResponseDTO.class ),
-            examples = @ExampleObject ( value = "{ \"id\": 1, \"nome\": \"O Senhor dos Aneis\", \"dataLancamento\": \"1954\", \"emprestado\": false, \"genero\": \"1\", \"sinopse\": \"Livro de fantasia\", \"isbn\": \"123456789\", \"quantidadePaginas\": \"1000\" }" ) )
+            examples = @ExampleObject ( value = "{ \"id\": 1, \"titulo\": \"O Senhor dos Aneis\", \"anoLancamento\": \"1954\", \"autor\": \"J. R. R. Tolkien\", \"genero\": \"Fantasia\", \"descricao\": \"Livro de fantasia\" }" ) )
     )
     @ApiResponse( responseCode = "400", description = "Erro ao atualizar livro" )
     @ApiResponse( responseCode = "500", description = "Erro interno do servidor" )
     @SecurityRequirement( name = "Bearer" )
     @PutMapping("/{id}")
     public ResponseEntity<LivroFullResponseDTO> atualizarLivro (
-            @RequestBody @Parameter ( description = "Dados do livro", required = true, example = "{ \"id\": 1, \"nome\": \"O Senhor dos Aneis\", \"dataLancamento\": \"1954\", \"emprestado\": false, \"genero\": \"1\", \"sinopse\": \"Livro de fantasia\", \"isbn\": \"123456789\", \"quantidadePaginas\": \"1000\" }", content = @Content( schema = @Schema( implementation = LivroPutRequestDto.class ) ) )@Valid LivroPutRequestDto livroPutRequestDto,
-            @RequestParam @Parameter ( description = "ID do livro a ser atualizado", required = true, example = "1" ) Integer id ) {
+            @RequestBody @Parameter ( description = "Dados do livro", required = true, example = )@Valid LivroPutRequestDto livroPutRequestDto, @RequestParam Integer id ) {
 
         try {
 
@@ -101,16 +100,8 @@ public class LivroController {
      * @return Um ResponseEntity contendo o livro buscado e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
      * @see LivroService#buscarLivro(Integer), LivroFullResponseDTO
      */
-    @Tag( name = "Livro", description = "Recurso para gerenciamento de livros" )
-    @Operation( summary = "Buscar um livro", description = "Endpoint para buscar um livro" )
-    @ApiResponse( responseCode = "200", description = "Livro encontrado com sucesso",
-            content = @Content( schema = @Schema( implementation = LivroFullResponseDTO.class ),
-            examples = @ExampleObject ( value = "{ \"id\": 1, \"nome\": \"O Senhor dos Aneis\", \"dataLancamento\": \"1954\", \"emprestado\": false, \"genero\": \"1\", \"sinopse\": \"Livro de fantasia\", \"isbn\": \"123456789\", \"quantidadePaginas\": \"1000\" }" ) ) )
-    @ApiResponse( responseCode = "404", description = "Livro nao encontrado" )
-    @ApiResponse( responseCode = "500", description = "Erro interno do servidor" )
-    @SecurityRequirement( name = "Bearer" )
     @GetMapping("/{id}")
-    public ResponseEntity<LivroFullResponseDTO> buscarLivro ( @PathVariable @Parameter ( description = "ID do livro a ser buscado", required = true, example = "1" ) @Positive Integer id ) {
+    public ResponseEntity<LivroFullResponseDTO> buscarLivro ( @PathVariable @Positive Integer id ) {
 
         try {
             LivroFullResponseDTO livroFullResponseDTO = service.buscarLivro( id );
@@ -125,13 +116,6 @@ public class LivroController {
      * @return Um ResponseEntity contendo a lista de livros e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
      * @see LivroService#listarLivros(), LivroFullResponseDTO
      */
-    @Tag( name = "Livro", description = "Recurso para gerenciamento de livros" )
-    @Operation( summary = "Listar todos os livros", description = "Endpoint para listar todos os livros" )
-    @ApiResponse( responseCode = "200", description = "Livros listados com sucesso",
-            content = @Content( schema = @Schema( implementation = LivroFullResponseDTO.class ),
-                    examples = @ExampleObject ( value = "{ \"id\": 1, \"nome\": \"O Senhor dos Aneis\", \"dataLancamento\": \"1954\", \"emprestado\": false, \"genero\": \"1\", \"sinopse\": \"Livro de fantasia\", \"isbn\": \"123456789\", \"quantidadePaginas\": \"1000\" }" ) ) )
-    @ApiResponse( responseCode = "404", description = "Nenhum livro encontrado" )
-    @ApiResponse( responseCode = "500", description = "Erro interno do servidor" )
     @GetMapping
     public ResponseEntity<List<LivroFullResponseDTO>> listarLivros () {
         try {
@@ -146,14 +130,6 @@ public class LivroController {
      * @return Um ResponseEntity contendo a lista de livros disponiveis e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
      * @see LivroService#listarLivrosDisponiveis(), LivroFullResponseDTO, Livro
      */
-    @Tag( name = "Livro", description = "Recurso para gerenciamento de livros" )
-    @Operation( summary = "Listar todos os livros disponiveis", description = "Endpoint para listar todos os livros disponiveis" )
-    @ApiResponse( responseCode = "200", description = "Livros disponiveis listados com sucesso",
-            content = @Content( schema = @Schema( implementation = LivroFullResponseDTO.class ),
-                    examples = @ExampleObject ( value = "{ \"id\": 1, \"nome\": \"O Senhor dos Aneis\", \"dataLancamento\": \"1954\", \"emprestado\": false, \"genero\": \"1\", \"sinopse\": \"Livro de fantasia\", \"isbn\": \"123456789\", \"quantidadePaginas\": \"1000\" }" ) ) )
-    @ApiResponse( responseCode = "404", description = "Nenhum livro disponivel encontrado" )
-    @ApiResponse( responseCode = "500", description = "Erro interno do servidor" )
-    @SecurityRequirement( name = "Bearer" )
     @GetMapping("/disponiveis")
     public ResponseEntity<List<LivroFullResponseDTO>> listarLivrosDisponiveis () {
         try {
@@ -168,14 +144,6 @@ public class LivroController {
      * @return Um ResponseEntity contendo a lista de livros emprestados e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
      * @see LivroService#listarLivrosEmprestados(), LivroFullResponseDTO, Livro
      */
-    @Tag( name = "Livro", description = "Recurso para gerenciamento de livros" )
-    @Operation( summary = "Listar todos os livros emprestados", description = "Endpoint para listar todos os livros emprestados" )
-    @ApiResponse( responseCode = "200", description = "Livros emprestados listados com sucesso",
-            content = @Content( schema = @Schema( implementation = LivroFullResponseDTO.class ),
-                    examples = @ExampleObject ( value = "{ \"id\": 1, \"nome\": \"O Senhor dos Aneis\", \"dataLancamento\": \"1954\", \"emprestado\": false, \"genero\": \"1\", \"sinopse\": \"Livro de fantasia\", \"isbn\": \"123456789\", \"quantidadePaginas\": \"1000\" }" ) ) )
-    @ApiResponse( responseCode = "404", description = "Nenhum livro emprestado encontrado" )
-    @ApiResponse( responseCode = "500", description = "Erro interno do servidor" )
-    @SecurityRequirement( name = "Bearer" )
     @GetMapping("/emprestados")
     public ResponseEntity<List<LivroFullResponseDTO>> listarLivrosEmprestados () {
         try {
@@ -190,16 +158,8 @@ public class LivroController {
      * @return Um ResponseEntity contendo a lista de livros disponiveis ou emprestados e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
      * @see LivroService#listarLivrosDisponiveis(), LivroService#listarLivrosEmprestados(), LivroFullResponseDTO, Livro
      */
-    @Tag( name = "Livro", description = "Recurso para gerenciamento de livros" )
-    @Operation( summary = "Listar todos os livros disponiveis ou emprestados", description = "Endpoint para listar todos os livros disponiveis ou emprestados" )
-    @ApiResponse( responseCode = "200", description = "Livros disponiveis ou emprestados listados com sucesso",
-            content = @Content( schema = @Schema( implementation = LivroFullResponseDTO.class ),
-                    examples = @ExampleObject ( value = "{ \"id\": 1, \"nome\": \"O Senhor dos Aneis\", \"dataLancamento\": \"1954\", \"emprestado\": false, \"genero\": \"1\", \"sinopse\": \"Livro de fantasia\", \"isbn\": \"123456789\", \"quantidadePaginas\": \"1000\" }" ) ) )
-    @ApiResponse( responseCode = "404", description = "Nenhum livro disponivel ou emprestado encontrado" )
-    @ApiResponse( responseCode = "500", description = "Erro interno do servidor" )
-    @SecurityRequirement( name = "Bearer" )
     @GetMapping
-    public ResponseEntity<List<LivroFullResponseDTO>> listarLivrosPorDispobinilidade ( @RequestParam @Parameter ( example = "true", required = true, description = "Disponibilidade do livro" ) Boolean disponibilidade ) {
+    public ResponseEntity<List<LivroFullResponseDTO>> listarLivrosPorDispobinilidade ( @RequestParam Boolean disponibilidade ) {
 
         try {
             return new ResponseEntity<>( disponibilidade ? service.listarLivrosDisponiveis() : service.listarLivrosEmprestados(), HttpStatus.OK );
@@ -214,14 +174,8 @@ public class LivroController {
      * @return Um ResponseEntity contendo o status HTTP 200 (OK) ou o status HTTP 400 (Bad Request).
      * @see LivroService#deletarLivro(Integer)
      */
-    @Tag( name = "Livro", description = "Recurso para gerenciamento de livros" )
-    @Operation( summary = "Deletar um livro", description = "Endpoint para deletar um livro" )
-    @ApiResponse( responseCode = "200", description = "Livro deletado com sucesso" )
-    @ApiResponse( responseCode = "400", description = "Erro ao deletar livro" )
-    @ApiResponse( responseCode = "500", description = "Erro interno do servidor" )
-    @SecurityRequirement( name = "Bearer" )
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarLivro ( @PathVariable @Positive @Parameter ( description = "ID do livro a ser deletado", required = true, example = "1" ) Integer id ) {
+    public ResponseEntity<Void> deletarLivro ( @PathVariable @Positive Integer id ) {
         service.deletarLivro( id );
         return new ResponseEntity<>( HttpStatus.OK );
     }
