@@ -50,7 +50,7 @@ public class Livro {
 
     @NonNull
     @Column ( nullable = false )
-    private Boolean emprestado = false;
+    private Boolean emprestado;
 
     @ManyToMany
     private List<Autor> autores;

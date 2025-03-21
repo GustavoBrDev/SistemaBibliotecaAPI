@@ -1,0 +1,5 @@
+FROM mysql:8.0
+LABEL authors="gustavo_stinghen"
+
+ENV MYSQL_DATABASE=db_biblioteca
+ENV MYSQL_PASSWORD=root

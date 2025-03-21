@@ -35,7 +35,7 @@ public class Emprestimo {
 
     @NonNull
     @Column ( nullable = false )
-    private Boolean devolvido = false;
+    private Boolean devolvido;
 
     @ManyToOne
     @NonNull
