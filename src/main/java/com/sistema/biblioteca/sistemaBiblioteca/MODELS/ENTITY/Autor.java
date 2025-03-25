@@ -61,6 +61,10 @@ public class Autor {
 
     public List<LivroAutorResponseDTO> converterLivros ( ){
 
+        if ( this.livros == null || this.livros.isEmpty() ){
+            return null;
+        }
+
         List<LivroAutorResponseDTO> conversao = new ArrayList<>();
 
         for ( Livro livro : this.livros ){

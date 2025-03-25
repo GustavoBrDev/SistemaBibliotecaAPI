@@ -51,11 +51,15 @@ public class Genero {
                 .id ( this.id )
                 .descricao( this.descricao )
                 .nome ( this.nome )
-
+                .livros( converterLivros() )
                 .build();
     }
 
     public List<LivroGeneroResponseDTO> converterLivros ( ){
+
+        if ( this.livros == null || this.livros.isEmpty() ) {
+            return null;
+        }
 
         List<LivroGeneroResponseDTO> conversao = new ArrayList<>();
 

@@ -101,6 +101,10 @@ public class Livro {
 
     public List<AutorResponseDTO> converterAutores ( ){
 
+        if ( this.autores == null || this.autores.isEmpty() ){
+            return null;
+        }
+
         List<AutorResponseDTO> conversao = new ArrayList<>();
 
         for ( Autor autor : this.autores ){
@@ -111,6 +115,10 @@ public class Livro {
     }
 
     public List<GeneroResponseDTO> converterGeneros ( ){
+
+        if ( this.generos == null || this.generos.isEmpty() ){
+            return null;
+        }
 
         List<GeneroResponseDTO> conversao = new ArrayList<>();
 

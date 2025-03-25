@@ -36,6 +36,7 @@ public class AutorService {
     public AutorFullResponseDTO criarAutor (AutorRequestDTO autorRequestDTO ) {
 
         Autor autor = autorRequestDTO.converter();
+
         if ( repository.existsByNome(autor.getNome()) ) {
             throw new RuntimeException("Autor já cadastrado");
         }

@@ -45,7 +45,7 @@ public class AutorController {
      * Método de POST para criar um autor.
      * @param autorRequestDTO O {@link EmprestimoRequestDTO} a ser criado
      * @return Um ResponseEntity contendo o autor criado e o status HTTP 201 (Created) ou o status HTTP 400 (Bad Request).
-     * @see AutorService, AutorFullResponseDTO
+     * @see AutorService#criarAutor(AutorRequestDTO), AutorFullResponseDTO
      */
 
     @Tag( name = "Autor", description = "Recurso para gerenciamento de autores" )
@@ -57,14 +57,9 @@ public class AutorController {
     @ApiResponse ( responseCode = "500", description = "Erro interno do servidor" )
     @SecurityRequirement( name = "Bearer" )
     @PostMapping
-    public ResponseEntity<AutorFullResponseDTO> criarAutor ( @RequestBody
-        @Parameter ( description = "Autor a ser criado", content = @Content ( schema = @Schema ( implementation = AutorRequestDTO.class ) ), required = true, example = "{ \"nome\": \"Gustavo Stinghen\", \"dataNascimento\": \"2000-01-01\", \"biografia\": \"Biografia do autor\" }" ) @Valid AutorRequestDTO autorRequestDTO ) {
-        try {
-            AutorFullResponseDTO autorFullResponseDTO = service.criarAutor( autorRequestDTO );
-            return new ResponseEntity<>( autorFullResponseDTO, HttpStatus.CREATED );
-        } catch ( RuntimeException e ) {
-            return new ResponseEntity<>( HttpStatus.BAD_REQUEST );
-        }
+    public ResponseEntity<AutorFullResponseDTO> criarAutor(@RequestBody @Valid AutorRequestDTO autorRequestDTO) {
+        AutorFullResponseDTO autorFullResponseDTO = service.criarAutor(autorRequestDTO);
+        return new ResponseEntity<>(autorFullResponseDTO, HttpStatus.CREATED);
     }
 
     /**
@@ -72,7 +67,7 @@ public class AutorController {
      * @param autorPutRequestDTO O {@link AutorPutRequestDTO} contendo os dados atualizados do autor.
      * @param id O ID do autor a ser atualizado.
      * @return Um ResponseEntity contendo o autor atualizado e o status HTTP 200 (OK) ou o status HTTP 400 (Bad Request).
-     * @see AutorService, AutorFullResponseDTO
+     * @see AutorService#atualizarAutor(AutorPutRequestDTO, Integer), AutorFullResponseDTO
      */
     @Tag( name = "Autor", description = "Recurso para gerenciamento de autores" )
     @Operation ( summary = "Atualiza um autor", description = "Atualiza um autor e retorna o autor atualizado com o status HTTP 200" )
@@ -97,7 +92,7 @@ public class AutorController {
     /**
      * Método de GET para listar todos os autores.
      * @return Um ResponseEntity contendo uma lista de autores e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
-     * @see AutorService, AutorFullResponseDTO
+     * @see AutorService#listarAutores(), List<AutorFullResponseDTO>
      */
     @Tag( name = "Autor", description = "Recurso para gerenciamento de autores")
     @Operation ( summary = "Lista todos os autores", description = "Lista todos os autores e retorna uma lista de autores com o status HTTP 200" )
@@ -120,7 +115,7 @@ public class AutorController {
      * Método GET para buscar um autor pelo ID.
      * @param id O ID do autor a ser buscado.
      * @return Um ResponseEntity contendo o autor e o status HTTP 200 (OK) ou o status HTTP 404 (Not Found).
-     * @see AutorService, AutorFullResponseDTO
+     * @see AutorService#buscarAutor(Integer), AutorFullResponseDTO
      */
     @Tag( name = "Autor", description = "Recurso para gerenciamento de autores" )
     @Operation ( summary = "Busca um autor pelo ID", description = "Busca um autor pelo ID e retorna o autor com o status HTTP 200" )
@@ -144,7 +139,7 @@ public class AutorController {
      * Método DELETE para deletar um autor pelo ID.
      * @param id O ID do autor a ser deletado.
      * @return Um ResponseEntity contendo o status HTTP 200 (OK) ou o status HTTP 400 (Bad Request).
-     * @see AutorService
+     * @see AutorService#deletarAutor(Integer)
      */
     @Tag( name = "Autor", description = "Recurso para gerenciamento de autores" )
     @Operation ( summary = "Deleta um autor pelo ID", description = "Deleta um autor pelo ID e retorna o status HTTP 200" )
